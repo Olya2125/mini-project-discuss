@@ -1,0 +1,95 @@
+
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: center;
+  }
+  
+  ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  li {
+    padding: 10px 180px;
+  align-self: center;
+  }
+  
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .main_head{
+display: flex;
+justify-content: space-around;
+  }
+.toppost{
+  margin-top: 80px;
+}
+.postmain{
+display: flex;
+justify-content: center;
+}
+  .postlist{
+margin-top: 20px;
+
+  }
+
+  .postcard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+.post{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid #868484;
+  border-radius: 8px;
+  width: 140px;
+  margin-top: 20px;
+}
+  .new_topic{
+    display: flex;
+    flex-direction: column;
+
+  }
+
+.button{
+  width: 180px;
+}
+  .t{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 80px;
+  }
+
+  .link{
+    text-decoration: underline;
+    cursor: pointer;
+
+  }
+.topics{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid #868484;
+  border-radius: 8px;
+  width: 140px;
+  align-self: center;
+  margin-top: 20px;
+}
+  .topic{
+    text-align: center;
+  }
+  ul{
+display: flex;
+justify-content: center;
+  }
