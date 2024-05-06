@@ -3,6 +3,7 @@ import * as action from "@/actions";
 import { auth } from "@/auth";
 import Logo from "@/components/logo/page";
 import { Link, Button, Input } from "@nextui-org/react";
+import "..//header/header.css";
 
 export default async function () {
   const session = await auth();
@@ -36,7 +37,7 @@ export default async function () {
             <li className="hidden lg:flex">
               <form action={action.signIn}>
                 <Button
-                  className="bg-blue-200"
+                  color="primary"
                   variant="solid"
                   size="md"
                   radius="sm"
@@ -58,13 +59,14 @@ export default async function () {
                 </Button>
               </form>
 
-              {session?.user ? (
+               {session?.user ? (
                 <div>
-                  <h3>Signed in</h3> <p>{JSON.stringify(session.user)}</p>
+                  <h3>Signed in</h3>
+                  <p>{JSON.stringify(session.user)}</p>
                 </div>
               ) : (
                 <div>signed out</div>
-              )}
+              )} 
             </li>
           </ul>
         </nav>

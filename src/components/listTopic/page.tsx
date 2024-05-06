@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "@nextui-org/react";
 import "..//header/header.css";
 
-function PostList({ title }: { title: string }) {
+function TopicsSidebar({ title }: { title: string }) {
   const posts = [
     { id: 1, name: "javascript" },
     { id: 2, name: "golang" },
@@ -24,4 +24,4 @@ function PostList({ title }: { title: string }) {
   );
 }
 
-export default PostList;
+export default TopicsSidebar;

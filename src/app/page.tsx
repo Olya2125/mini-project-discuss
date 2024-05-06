@@ -1,12 +1,13 @@
 // import { Button } from "@nextui-org/react";
 // import * as action from "@/actions";
 
-import PostCard from "@/components/PostCard/page";
-import { Button, Navbar } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import React from "react";
-
-import PostList from "@/components/listTopic/page";
 import Header from "@/components/header/page";
+import TopicsSidebar from "@/components/listTopic/page";
+import PostList from "@/components/PostList/page";
+ import "..//components/header/header.css";
+
 
 export default async function Home() {
   return (
@@ -15,13 +16,18 @@ export default async function Home() {
       <div className="main_head">
         <div className="toppost">
           <div className="postmain">
-            <PostCard title="Top Post" />
+             <PostList title="Top Post" />
           </div>
         </div>
         <div className="t">
-          <Button className="button">New Topic</Button>
+          <Button className="btn-signout"
+                  color="primary"
+                  size="md"
+                  radius="sm"
+                  variant="solid"
+                  type="submit" >New Topic</Button>
 
-          <PostList title="Topics" />
+          <TopicsSidebar title="Topics" />
         </div>
       </div>
       {/* <main className="flex  flex-col items-center justify-between p-5">
