@@ -1,0 +1,54 @@
+'use server';
+import { db } from '@/db';
+
+export const createTopic = async (_prevState: { message: string }, formData: FormData) => {
+  const slug = formData.get('slug') as string;
+  const description = formData.get('description') as string;
+  // console.log('Slug:', slug); // Проверьте значение slug в консоли
+  // console.log('Description:', description); // Проверьте значение description в консоли
+
+  try {
+    if (!slug || slug.length < 3) {
+      return { message: 'Name should be longer' };
+    }
+
+    if (!description || description.length < 2) {
+      return { message: 'Description should be longer' };
+    }
+
+    // Проверяем уникальность slug перед созданием
+    const existingTopic = await db.topic.findUnique({ where: { slug } });
+    if (existingTopic) {
+      return { message: 'Slug already exists. Please choose a different slug.' };
+    }
+
+    const createdTopic = await db.topic.create({
+      data: {
+        slug,
+        description,
+      },
+    });
+
+    // console.log('Created topic:', createdTopic); // Добавьте вывод в консоль
+
+    return { message: 'Topic created successfully' };
+    
+  } catch (error: unknown) {
+    console.error('Error creating topic:', error); // Добавьте вывод ошибки в консоль
+    if (error instanceof Error) {
+      return { message: error.message };
+    } else {
+      return { message: 'Something went wrong' };
+    }
+  }
+};
+
+export const getAllTopics = async () => {
+  try {
+    const topics = await db.topic.findMany();
+    return topics;
+  } catch (error) {
+    console.error('Error fetching topics:', error);
+    return [];
+  }
+};
