@@ -11,12 +11,14 @@ function Post({
   comments: string
 }) {
   return (
-    <div className="postcard">
+    <div className="postcard" >
       <Link href="/viewTopic">
         <div className="post">
-          <h3>{title}</h3>
-          <span>By: {author}</span>
-          <p>{comments}</p>
+          <h3 className="post_title">{title}</h3>
+          <div className="post_flex span">
+          <span >By: {author}</span>
+          <p className="post_comments">{comments}</p>
+          </div>
         </div>
       </Link>
     </div>
@@ -29,14 +31,14 @@ function PostCard({ title }: { title: string }) {
       id: 1,
       title: "Implementing Charts",
       author: "wpa",
-      comments: "",
+      comments: "20 comments",
     },
 
     {
       id: 2,
       title: "Making in app",
       author: "Ramaz",
-      comments: "",
+      comments: "10 comments",
     },
   ];
   return (

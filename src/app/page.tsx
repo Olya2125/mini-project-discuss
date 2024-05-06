@@ -15,13 +15,15 @@ export default function Home() {
       <Header/>  
       <div className="main_head">
         <div className="toppost">
-          <div className="postmain">
+          <div className="postmain alltitle">
             <PostCard  title="Top Post"/>
-          </div>
+            </div>
+
         </div>
         <div className="t">
           <CreateTopicComponent />
-          <PostList title="Topics" />
+
+          <PostList  title="Topics" />
         </div>
       </div>
     {/* <main className="flex  flex-col items-center justify-between p-5">

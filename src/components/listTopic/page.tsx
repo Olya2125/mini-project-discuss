@@ -28,11 +28,11 @@ const PostList: React.FC<PostListProps> = ({ title }) => {
   return (
     <div className="topics">
       <h3 className="topic">{title}</h3>
-      <ul>
-        <div>
+      <ul >
+        <div >
           {topics.map((topic) => (
-            <li key={topic.id}>
-              <Link href={`/topics/${topic.slug}`}>
+            <li  key={topic.id} className="topic_link">
+              <Link href={`/topics/${topic.slug}`} className="topic_link">
                 {topic.slug}
               </Link>
             </li>

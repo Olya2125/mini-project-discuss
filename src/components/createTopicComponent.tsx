@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Button } from '@nextui-org/react';
-import ModalWindow from '@/components/modalWindow';
-import TopicInput from '@/components/TopicInput';
-import { createTopic } from '@/app/actions';
+import React, { useState } from "react";
+import { Button } from "@nextui-org/react";
+import ModalWindow from "@/components/modalWindow";
+import TopicInput from "@/components/TopicInput";
+import { createTopic } from "@/app/actions";
 
 const CreateTopicComponent: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [slug, setSlug] = useState('');
-  const [description, setDescription] = useState('');
+  const [slug, setSlug] = useState("");
+  const [description, setDescription] = useState("");
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -22,21 +22,30 @@ const CreateTopicComponent: React.FC = () => {
   const handleCreateTopic = async () => {
     try {
       const formData = new FormData();
-      formData.append('slug', slug);
-      formData.append('description', description);
+      formData.append("slug", slug);
+      formData.append("description", description);
 
-      const result = await createTopic({ message: '' }, formData);
+      const result = await createTopic({ message: "" }, formData);
       console.log(result.message); // Обработка успешного создания темы
 
       closeModal(); // Закрыть модальное окно после создания темы
     } catch (error) {
-      console.error('Ошибка при создании темы:', error);
+      console.error("Ошибка при создании темы:", error);
     }
   };
 
   return (
     <div>
-      <Button onClick={openModal}>New Topic</Button>
+      <Button 
+        color="primary"
+        variant="solid"
+        size="lg"
+        radius="sm"
+        type="submit"
+        onClick={openModal}
+      >
+        New Topic
+      </Button>
       <ModalWindow
         title="Create a Topic"
         isOpen={isModalOpen}
