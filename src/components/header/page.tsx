@@ -34,7 +34,9 @@ export default async function () {
                 />
               </Link>
             </li>
-            <li className="hidden lg:flex">
+            <div className="btn_block">
+            <li className="hidden lg:flex buttons">
+              
               <form action={action.signIn}>
                 <Button
                   color="primary"
@@ -58,16 +60,18 @@ export default async function () {
                   Sign out
                 </Button>
               </form>
-
+              </li>
+              <li>
                {session?.user ? (
-                <div>
-                  <h3>Signed in</h3>
-                  <p>{JSON.stringify(session.user)}</p>
+                <div className="welcome">
+                  <h3>Welcome</h3>
+                  {/* <p>{JSON.stringify(session.user)}</p> */}
                 </div>
               ) : (
                 <div>signed out</div>
               )} 
-            </li>
+</li>
+            </div>
           </ul>
         </nav>
       </header>

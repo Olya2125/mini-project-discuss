@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@nextui-org/react";
 import PostCard from "../PostCard/page";
+import "..//header/header.css";
 
 
 function PostList({ title }: { title: string }) {

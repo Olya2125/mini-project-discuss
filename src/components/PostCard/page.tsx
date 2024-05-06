@@ -11,7 +11,7 @@ function Post({
   comments: string
 }) {
   return (
-    <div className="postcard">
+    <div className="postcard" >
       <Link href="/viewTopic">
         <div className="post">
           <h3 className="post_title">{title}</h3>

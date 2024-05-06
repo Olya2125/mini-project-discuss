@@ -56,6 +56,11 @@ margin-top: 20px;
     flex-direction: column;
     justify-content: center;
   }
+
+  .post:hover {
+
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
 .post{
   display: flex;
   flex-direction: column;
@@ -86,8 +91,17 @@ justify-content: space-between;
     flex-direction: column;
 
   }
+.btn_block{
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
 
 
+.buttons{
+  display: flex;
+  margin-top: 36px;
+}
 .btn-signout{
   margin-left: 10px;
 }
@@ -107,16 +121,31 @@ justify-content: space-between;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 2px solid #868484;
+  border: 2px solid #a4a2a2;
   border-radius: 8px;
   width: 140px;
   align-self: center;
   margin-top: 20px;
+  padding: 20px 20px 20px 20px ;
 }
   .topic{
     text-align: center;
+    font-size: 18px;
+    color: #021A36;
+    font-weight: 600;
   }
   ul{
 display: flex;
 justify-content: center;
+  }
+.topic_link{
+  text-decoration: underline;
+  cursor: pointer;
+  color: #3d3f43;
+  font-weight: 500;
+  font-size: 16px;
+}
+  .btn_newtopic{
+    display: flex;
+    justify-content: center;
   }
