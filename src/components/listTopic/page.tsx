@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "@nextui-org/react";
 import { Topic } from "@prisma/client";
 import { getAllTopics } from "@/app/actions"; // Импорт функции получения всех тем
-import "..//header/header.css";
+import styles from "@/components/styles.module.css";
+
 
 type PostListProps = {
   title: string;
@@ -26,13 +27,13 @@ const PostList: React.FC<PostListProps> = ({ title }) => {
   }, []); // Пустой массив зависимостей означает, что эффект будет вызван только при монтировании компонента
 
   return (
-    <div className="topics">
-      <h3 className="topic">{title}</h3>
+    <div className={styles.topics}>
+      <h3 className={styles.topic}>{title}</h3>
       <ul >
         <div >
           {topics.map((topic) => (
-            <li  key={topic.id} className="topic_link">
-              <Link href={`/topics/${topic.slug}`} className="topic_link">
+            <li  key={topic.id} className={styles.postlist}>
+              <Link href={`/topics/${topic.slug}`} className={styles.topic_link}>
                 {topic.slug}
               </Link>
             </li>

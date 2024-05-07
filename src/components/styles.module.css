@@ -1,29 +1,29 @@
 
 .header {
-    /* background-color: #333; */
-    color: #fff;
-    padding: 20px 10px;
+  display: flex;
+  justify-content: space-evenly;
+
+
   }
   
-  nav {
-    display: flex;
-    justify-content: center;
-  }
+.nav{
+  color: #fff;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+}
   
-  ul {
+  .ul {
     list-style: none;
     display: flex;
   }
   
-  li {
-    padding: 10px 140px;
+  .li {
+    margin: 10px 300px 12px 0;
   align-self: center;
   }
   
-  a {
-    color: #fff;
-    text-decoration: none;
-  }
+
   
   .main_head{
 display: flex;
@@ -85,6 +85,9 @@ margin-top: 20px;
 .post_flex{
   display: flex;
 justify-content: space-between;
+margin-top: 38px;
+color: #3d3f43;
+font-weight: 600;
 }
   .new_topic{
     display: flex;
@@ -102,7 +105,7 @@ justify-content: space-between;
   display: flex;
   margin-top: 36px;
 }
-.btn-signout{
+.btn_signout{
   margin-left: 10px;
 }
   .t{
@@ -134,7 +137,7 @@ justify-content: space-between;
     color: #021A36;
     font-weight: 600;
   }
-  ul{
+  .ul{
 display: flex;
 justify-content: center;
   }

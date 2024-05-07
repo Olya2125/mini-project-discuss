@@ -5,22 +5,25 @@ import React from 'react';
 import Header from '@/components/header/page';
 import PostCard from '@/components/PostCard/page';
 import PostList from '@/components/listTopic/page';
-import "..//components/header/header.css";
 import CreateTopicComponent from '@/components/createTopicComponent';
+import styles from "@/components/styles.module.css";
+
 
 export default function Home() {
 
   return (
     <div> 
       <Header/>  
-      <div className="main_head">
-        <div className="toppost">
-          <div className="postmain alltitle">
+      <div className={styles.main_head}>
+        <div className={styles.toppost}>
+          <div className={styles.postmain} >
+            <div className={styles.alltitle}>
             <PostCard  title="Top Post"/>
+            </div>
             </div>
 
         </div>
-        <div className="t">
+        <div className={styles.t}>
           <CreateTopicComponent />
 
           <PostList  title="Topics" />

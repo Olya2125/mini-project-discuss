@@ -3,22 +3,22 @@ import * as action from "@/actions";
 import { auth } from "@/auth";
 import Logo from "@/components/logo/page";
 import { Link, Button, Input } from "@nextui-org/react";
-import "..//header/header.css";
+import styles from "@/components/styles.module.css";
 
 export default async function () {
   const session = await auth();
 
   return (
     <main className="bg-blue-900">
-      <header className="header">
-        <nav>
-          <ul>
-            <li>
+      <header className={styles.header}>
+        <nav className={styles.nav}>
+          <ul className={styles.ul}>
+            <li className={styles.li}>
               <Link href="/">
                 <Logo />
               </Link>
             </li>
-            <li>
+            <li className={styles.li}>
               <Link href="">
                 <Input
                   classNames={{
@@ -35,7 +35,8 @@ export default async function () {
               </Link>
             </li>
             <div className="btn_block">
-            <li className="hidden lg:flex buttons">
+              <div className={styles.buttons}>
+            <li className="hidden lg:flex">
               
               <form action={action.signIn}>
                 <Button
@@ -50,7 +51,7 @@ export default async function () {
               </form>
               <form action={action.signOut}>
                 <Button
-                  className="btn-signout"
+                  className={styles.btn_signout}
                   color="primary"
                   size="md"
                   radius="sm"
@@ -61,9 +62,10 @@ export default async function () {
                 </Button>
               </form>
               </li>
+              </div>
               <li>
                {session?.user ? (
-                <div className="welcome">
+                <div className={styles.welcome}>
                   <h3>Welcome</h3>
                   {/* <p>{JSON.stringify(session.user)}</p> */}
                 </div>
