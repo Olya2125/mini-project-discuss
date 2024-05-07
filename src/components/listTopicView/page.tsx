@@ -1,5 +1,6 @@
 import React from "react";
-import "..//header/header.css";
+import styles from "@/components/styles.module.css";
+
 
 function PostListView({ title }: { title: string }) {
   const posts = [
@@ -11,7 +12,7 @@ function PostListView({ title }: { title: string }) {
   ];
 
   return (
-    <div className="topics">
+    <div className={styles.topics}>
       {posts.map((post) => (
         <div key={post.id}>
           <p>{post.text}</p>

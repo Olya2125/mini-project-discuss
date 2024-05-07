@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "@nextui-org/react";
+import styles from "@/components/styles.module.css";
+
 
 function Post({
   title,
@@ -11,13 +13,13 @@ function Post({
   comments: string
 }) {
   return (
-    <div className="postcard" >
-      <Link href="/viewTopic">
-        <div className="post">
-          <h3 className="post_title">{title}</h3>
-          <div className="post_flex span">
+    <div className={styles.postcard} >
+      <Link href="/viewPost">
+        <div className={styles.post}>
+          <h3 className={styles.post_title}>{title}</h3>
+          <div className={styles.post_flex}>
           <span >By: {author}</span>
-          <p className="post_comments">{comments}</p>
+          <p className={styles.post_comments}>{comments}</p>
           </div>
         </div>
       </Link>
