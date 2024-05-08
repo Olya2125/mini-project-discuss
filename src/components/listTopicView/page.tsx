@@ -1,25 +1,20 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
+import { Topic } from "@prisma/client";
 import styles from "@/components/styles.module.css";
 
+type TopicListViewProps = {
+  topic: Topic;
+}
 
-function PostListView({ title }: { title: string }) {
-  const posts = [
-    {
-      title: "javascript",
-      id: 1,
-      text: "Here you can discuss all things javascript. Share your projects, ask questions, and help others.",
-    },
-  ];
+export default function TopicListView({ topic}: TopicListViewProps) {
+    
+  const { slug, description } = topic;
 
   return (
     <div className={styles.topics}>
-      {posts.map((post) => (
-        <div key={post.id}>
-          <p>{post.text}</p>
-        </div>
-      ))}
+      <h1>{slug}</h1>
+      <p>{description}</p>
     </div>
-  );
+  )
 }
-
-export default PostListView;

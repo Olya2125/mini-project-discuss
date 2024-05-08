@@ -1,5 +1,6 @@
 'use server';
 import { db } from '@/db';
+import { redirect } from 'next/navigation';
 
 export const createTopic = async (_prevState: { message: string }, formData: FormData) => {
   const slug = formData.get('slug') as string;
@@ -22,6 +23,10 @@ export const createTopic = async (_prevState: { message: string }, formData: For
       return { message: 'Slug already exists. Please choose a different slug.' };
     }
 
+    if (!/^[a-zA-Z0-9-]+$/.test(slug)) {
+      return { message: 'Temporary condition. Slug should only contain letters, numbers, and hyphens (-).' };
+    }
+
     const createdTopic = await db.topic.create({
       data: {
         slug,
@@ -29,12 +34,12 @@ export const createTopic = async (_prevState: { message: string }, formData: For
       },
     });
 
-    // console.log('Created topic:', createdTopic); // Добавьте вывод в консоль
+    console.log('Created topic:', createdTopic); 
 
     return { message: 'Topic created successfully' };
     
   } catch (error: unknown) {
-    console.error('Error creating topic:', error); // Добавьте вывод ошибки в консоль
+    console.error('Error creating topic:', error); 
     if (error instanceof Error) {
       return { message: error.message };
     } else {
@@ -52,3 +57,13 @@ export const getAllTopics = async () => {
     return [];
   }
 };
+
+export const deleteTopic = async (slug: string) => {
+  await db.topic.delete({
+      where: {
+          slug
+      }
+  })
+  
+  redirect(`/`);
+}
