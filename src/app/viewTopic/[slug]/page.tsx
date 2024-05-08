@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import TopicListView from "@/components/listTopicView/page";
 import styles from "@/components/styles.module.css";
 import TopicSlugListView from "@/components/ListSlugTopicView/page";
+import { deleteTopic } from "@/app/actions";
 
 export default async function ViewTopic(props: any) {
 
@@ -17,6 +18,8 @@ export default async function ViewTopic(props: any) {
             slug
         }
     });
+
+    const deleteTopicAction = deleteTopic.bind(null, slug);
 
     if (!topic) {
         return notFound();
@@ -36,6 +39,10 @@ export default async function ViewTopic(props: any) {
                 <Button className={styles.button}>Create Post</Button>
       
                 <TopicListView topic={topic} />
+                <form action={deleteTopicAction}>
+                      <Button className="border p-2 boreer-rounded" variant="flat" color="danger" type="submit" > delete this topic </Button>
+                      {/* <button className="border p-2 boreer-rounded"> Delete </button> */}
+                </form>
               </div>
             </div>
           </div>

@@ -9,7 +9,7 @@ type TopicSlugListViewProps = {
 
 export default function TopicSlugListView({ topic }: TopicSlugListViewProps) {
     
-  const { slug } = topic;
+  const {slug} = topic;
 
   return (
     <div>
@@ -17,3 +17,5 @@ export default function TopicSlugListView({ topic }: TopicSlugListViewProps) {
     </div>
   )
 }
+
+

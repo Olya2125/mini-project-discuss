@@ -66,7 +66,6 @@ const CreateTopicComponent: React.FC = () => {
           value={description}
           onChange={setDescription} // Используйте setDescription напрямую
         />
-        <Button onClick={handleCreateTopic}>Submit</Button>
       </ModalWindow>
     </div>
   );
