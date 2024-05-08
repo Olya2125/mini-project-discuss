@@ -4,9 +4,9 @@
 import React from 'react';
 import Header from '@/components/header/page';
 import PostCard from '@/components/PostCard/page';
-import PostList from '@/components/listTopic/page';
 import "..//components/header/header.css";
 import CreateTopicComponent from '@/components/createTopicComponent';
+import TopicList from '@/components/listTopic/page';
 
 export default function Home() {
 
@@ -23,7 +23,7 @@ export default function Home() {
         <div className="t">
           <CreateTopicComponent />
 
-          <PostList  title="Topics" />
+          <TopicList  title="Topics" />
         </div>
       </div>
     {/* <main className="flex  flex-col items-center justify-between p-5">
