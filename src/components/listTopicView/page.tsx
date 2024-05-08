@@ -5,20 +5,16 @@ import styles from "@/components/styles.module.css";
 
 type TopicListViewProps = {
   topic: Topic;
-  displayOnlySlug?: boolean; // Добавляем опциональный параметр для определения отображения только slug
 }
 
-export default function TopicListView({
-  topic,
-  displayOnlySlug = false, // По умолчанию отображаем полный объект topic
-}: TopicListViewProps) {
+export default function TopicListView({ topic}: TopicListViewProps) {
     
   const { slug, description } = topic;
 
   return (
     <div className={styles.topics}>
-      <h3>{slug}</h3>
-      {!displayOnlySlug && <p>{description}</p>}
+      <h1>{slug}</h1>
+      <p>{description}</p>
     </div>
   )
 }

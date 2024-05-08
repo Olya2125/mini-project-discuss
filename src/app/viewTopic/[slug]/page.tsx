@@ -6,6 +6,8 @@ import PostList from "@/components/PostList/page";
 import { db } from "@/db";
 import { notFound } from "next/navigation";
 import TopicListView from "@/components/listTopicView/page";
+import styles from "@/components/styles.module.css";
+import TopicSlugListView from "@/components/ListSlugTopicView/page";
 
 export default async function ViewTopic(props: any) {
 
@@ -20,20 +22,22 @@ export default async function ViewTopic(props: any) {
         return notFound();
     }
 
-  return (
-    <div>
-      <Header />
-      <div className="main_head">
-      <div className="postmain alltitle">
-        {/* <TopicListView topic={topic} /> */}
-          <TopicListView topic={topic} displayOnlySlug />
-          <PostList title="React" />
-        </div>
-        <div className="t">
-          <Button className="button">Create Post</Button>
-          <TopicListView topic={topic} />
-        </div>
-      </div>
-    </div>
-  );
+    return (
+          <div>
+            <Header />
+            <div className={styles.main_head}>
+            <div className={styles.postmain}>
+              <div className={styles.alltitle}>
+                <TopicSlugListView topic={topic} />
+                <PostList title="React" />
+                </div>
+              </div>
+              <div className={styles.t}>
+                <Button className={styles.button}>Create Post</Button>
+      
+                <TopicListView topic={topic} />
+              </div>
+            </div>
+          </div>
+        );
 }
