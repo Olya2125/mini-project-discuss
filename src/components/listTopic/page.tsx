@@ -10,11 +10,12 @@ export default async function TopicList(props: any) {
     <div className={styles.topics}>
       <ul >
         <div >
+          <h2 className={styles.topics_small}>Topics</h2>
           {topics.map(({slug, description, id}) => (
-            <ul key={slug}>
+            <ul className={styles.topic_ul} key={slug}>
               {/* <Link href={`/viewTopic/${encodeURIComponent(slug)}`} > */}
               <Link href={`/viewTopic/${slug}`} >
-              <h3>{slug}</h3>
+              <h3 className={styles.link}>{slug}</h3>
               </Link>
             </ul>
           ))}

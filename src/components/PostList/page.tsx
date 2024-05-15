@@ -9,7 +9,7 @@ function PostList({ title }: { title: string }) {
 
   return (
     <div className={styles.postmain}>
-      <h1 className={styles.alltitle}>{title}</h1>
+      <h1 >{title}</h1>
       <div>
       <PostCard title=""/>
       </div>
