@@ -63,11 +63,11 @@ export default async function () {
               </form>
               </li>
               </div>
-              <li>
+              <li className={styles.wel}>
                {session?.user ? (
                 <div className={styles.welcome}>
                   <h3>Welcome</h3>
-                  {/* <p>{JSON.stringify(session.user)}</p> */}
+                   <p>{JSON.stringify(session.user.name)}</p> 
                 </div>
               ) : (
                 <div>signed out</div>
