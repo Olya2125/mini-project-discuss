@@ -13,7 +13,7 @@ export default function TopicSlugListView({ topic }: TopicSlugListViewProps) {
 
   return (
     <div>
-      <div>{slug}</div>
+      <div >{slug}</div>
     </div>
   )
 }

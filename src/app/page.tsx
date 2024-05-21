@@ -2,7 +2,7 @@
 // import { Button } from '@nextui-org/react';
 
 import React from 'react';
-import Header from '@/components/header/page';
+
 import PostCard from '@/components/PostCard/page';
 import CreateTopicComponent from '@/components/createTopicComponent';
 import TopicList from '@/components/listTopic/page';
@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div> 
-      <Header/>  
+
       <div className={styles.main_head}>
         <div className={styles.toppost}>
           <div className={styles.postmain} >

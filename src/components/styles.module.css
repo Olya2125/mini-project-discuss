@@ -32,7 +32,7 @@ justify-content: space-around;
 
   }
 .toppost{
-  margin-top: 80px;
+
 }
 .postmain{
 display: flex;
@@ -49,6 +49,7 @@ margin-top: 20px;
     font-size: 40px;
     color: #021A36;
     font-weight: 700;
+    margin-top: 60px;
   }
 
   .postcard{
@@ -69,7 +70,13 @@ margin-top: 20px;
   border-radius: 8px;
   width: 340px;
   margin-top: 20px;
-  padding: 8px 40px 0 8px ;
+  padding: 14px 40px 8px 14px ;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.post:hover{
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  border: 2px solid  rgb(18, 54, 181);
 }
 .post_title{
   font-size: 18px;
@@ -108,6 +115,12 @@ font-weight: 600;
 .btn_signout{
   margin-left: 10px;
 }
+.btn_del{
+  margin-top: 10px;
+margin-left: 10px;
+color: #021A36;
+font-weight: 700;
+}
   .t{
     display: flex;
     flex-direction: column;
@@ -116,10 +129,50 @@ font-weight: 600;
   }
 
   .link{
-    text-decoration: underline;
+    position: relative;
     cursor: pointer;
+    text-decoration: none;
+    color: #021A36;
 
   }
+  .link:after {
+    content: "";
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px; 
+      background-color: #021A36;
+      transition: width 0.5s; 
+  }
+  
+  .link:hover:after {
+    content: "";
+      width: 100%;
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      height: 2px; 
+      background-color: rgb(18, 54, 181);
+      transition: width 0.5s;  
+  }
+       
+  .topics_small{
+    text-align: center;
+    font-weight: 700;
+    color: #021A36;
+    font-size: 18px;
+
+  }
+
+  .topic_ul{
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  
 .topics{
   display: flex;
   flex-direction: column;
@@ -163,3 +216,44 @@ justify-content: center;
   margin-bottom: 40px;
   border: 2pm solid rgb(124,142,207)
 }
+
+  .modal{
+    outline: none;
+    border-style: none;
+    border-radius: 15px;
+    background-color: #eee;
+    padding: 10px 15px;
+    width: 100%;
+    height: 40px;
+  }
+
+  .inset{
+   box-shadow: inset -4px -4px 10px #fff,
+   inset 4px 2px 12px #b9bbc4;
+  }
+
+  .wel{
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* .application{
+font-size: 18px;
+font-weight: 500;
+max-width: 400px;
+  }
+
+  .textarea{
+    max-width: 420px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border: 2px solid rgb(124, 142, 207);
+    border-radius: 12px;
+  }
+
+  .all_comments{
+    font-size: 18px;
+    font-weight: 600;
+margin-left: -260px; 
+margin-top: 30px;
+ } */

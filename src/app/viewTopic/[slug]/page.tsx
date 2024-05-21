@@ -1,4 +1,3 @@
-import Header from "@/components/header/page";
 import React from "react";
 import { Button } from "@nextui-org/react";
 import TopicList from "@/components/listTopic/page";
@@ -11,40 +10,56 @@ import TopicSlugListView from "@/components/ListSlugTopicView/page";
 import { deleteTopic } from "@/app/actions";
 
 export default async function ViewTopic(props: any) {
-
   const { slug } = props.params;
   const topic = await db.topic.findFirst({
-        where: {
-            slug
-        }
-    });
+    where: {
+      slug,
+    },
+  });
 
-    const deleteTopicAction = deleteTopic.bind(null, slug);
+  const deleteTopicAction = deleteTopic.bind(null, slug);
 
-    if (!topic) {
-        return notFound();
-    }
+  if (!topic) {
+    return notFound();
+  }
 
-    return (
-          <div>
-            <Header />
-            <div className={styles.main_head}>
-            <div className={styles.postmain}>
-              <div className={styles.alltitle}>
-                <TopicSlugListView topic={topic} />
-                <PostList title="React" />
-                </div>
-              </div>
-              <div className={styles.t}>
-                <Button className={styles.button}>Create Post</Button>
-      
-                <TopicListView topic={topic} />
-                <form action={deleteTopicAction}>
-                      <Button className="border p-2 boreer-rounded" variant="flat" color="danger" type="submit" > delete this topic </Button>
-                      {/* <button className="border p-2 boreer-rounded"> Delete </button> */}
-                </form>
-              </div>
-            </div>
+  return (
+    <div>
+      <div className={styles.main_head}>
+        <div className={styles.postmain}>
+          <div className={styles.alltitle}>
+            <TopicSlugListView topic={topic} />
+            <PostList title="" />
           </div>
-        );
+        </div>
+        <div className={styles.t}>
+          <Button
+            color="primary"
+            variant="solid"
+            size="lg"
+            radius="sm"
+            type="submit"
+          >
+            Create Post
+          </Button>
+
+          <TopicListView topic={topic} />
+          <form action={deleteTopicAction}>
+            <Button
+            className={styles.btn_del}
+              color="primary"
+              size="sm"
+              radius="sm"
+              variant="ghost"
+              type="submit"
+            >
+              {" "}
+              Delete this topic{" "}
+            </Button>
+            {/* <button className="border p-2 boreer-rounded"> Delete </button> */}
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }
