@@ -8,6 +8,7 @@ import styles from "@/components/styles.module.css"
 
 
 export default function ViewPost() {
+<<<<<<< HEAD
   return (
     <div>
 <div className="flex flex-col items-center p-10">
@@ -21,9 +22,13 @@ export default function ViewPost() {
     />
 
     <Button 
+=======
+   return (
+     <div>
+>>>>>>> 5454f6ef1f58d15069f059a8bb55c3339cc38b98
 
 <div className="flex flex-col items-center  p-10">
-    <h3 >Implementing Charts</h3>
+    <h3 > DDDD Implementing Charts</h3>
     <p >I'm trying to add a chart into my application, can anyone help me out?</p>
 
 <Textarea
