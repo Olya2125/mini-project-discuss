@@ -10,23 +10,26 @@ export default function ViewPost() {
    return (
      <div>
 
-<div className="flex flex-col items-center  p-10">
-    <h3 > DDDD Implementing Charts</h3>
-    <p >I'm trying to add a chart into my application, can anyone help me out?</p>
+<div className="flex flex-col items-center p-10">
+
+<h3 className={styles.alltitle}>Implementing Charts</h3>
+<p className={styles.application}>I'm trying to add a chart into my application, can anyone help me out?</p>
 
 <Textarea
-      placeholder="Enter your description"
-      
-    />
+    placeholder="Enter your description"
+    className={styles.textarea}
+/>
 
-    <Button
+<Button
     color="primary"
     variant="solid"
     size="md"
     radius="sm"
-    type="submit">Save</Button>
-       <p>All 20 comments</p>
-    </div>
+    type="submit"
+>Save</Button>
+<p className={styles.application}>All 20 comments</p>
+
+</div>
 
 
 

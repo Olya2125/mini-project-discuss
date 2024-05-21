@@ -205,6 +205,17 @@ justify-content: center;
     display: flex;
     justify-content: center;
   }
+  .application{
+    font-size: 18px;
+    font-weight: 500;
+    max-width:400px;
+  }
+.textarea{
+  max-width:420px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border: 2pm solid rgb(124,142,207)
+}
 
   .modal{
     outline: none;
@@ -226,7 +237,7 @@ justify-content: center;
     text-align: center;
   }
 
-  /* .application{
+ .application{
 font-size: 18px;
 font-weight: 500;
 max-width: 400px;
@@ -245,4 +256,4 @@ max-width: 400px;
     font-weight: 600;
 margin-left: -260px; 
 margin-top: 30px;
- } */
+ } 
