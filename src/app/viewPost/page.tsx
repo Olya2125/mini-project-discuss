@@ -7,11 +7,11 @@ import styles from "@/components/styles.module.css"
 
 
 export default function ViewPost() {
-  return (
-    <div>
+   return (
+     <div>
 
 <div className="flex flex-col items-center  p-10">
-    <h3 >Implementing Charts</h3>
+    <h3 > DDDD Implementing Charts</h3>
     <p >I'm trying to add a chart into my application, can anyone help me out?</p>
 
 <Textarea
