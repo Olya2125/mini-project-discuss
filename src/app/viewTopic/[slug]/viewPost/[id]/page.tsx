@@ -1,6 +1,8 @@
 import React from 'react';
 import { db } from '@/db';
 import { notFound } from 'next/navigation';
+import { Textarea } from '@nextui-org/input';
+import { Button, Avatar } from '@nextui-org/react';
 import styles from '@/components/styles.module.css';
 
 export default async function ViewPost(props: any) {
@@ -23,19 +25,51 @@ export default async function ViewPost(props: any) {
   }
 
   return (
-    <div className={styles.postDetail}>
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
-      <div>
-        <h3>Author: {post.user.name}</h3>
-        <h3>Topic: {post.topic.slug}</h3>
+    <div>
+      <div className="flex flex-col items-center p-10">
+        <h3 className={styles.alltitle}>{post.title}</h3>
+        <p className={styles.application}>{post.content}</p>
+        <Textarea
+          placeholder="Enter your comment"
+          className={styles.textarea}
+        />
+        <Button
+          color="primary"
+          variant="solid"
+          size="md"
+          radius="sm"
+          type="submit"
+        >
+          Save
+        </Button>
       </div>
       <div>
-        <h3>Comments</h3>
-        {post.comments.map(comment => (
-          <div key={comment.id}>
-            <p>{comment.content}</p>
-            <small>by {comment.user.name}</small>
+        <p className={styles.application_comments}>
+          All {post.comments.length} comments
+        </p>
+        {post.comments.map((comment) => (
+          <div key={comment.id} className={styles.border}>
+            <div className={styles.comment_one}>
+              <Avatar />
+              <div className={styles.comment_one_info}>
+                <h3>{comment.user.name}</h3>
+                <p>{comment.content}</p>
+                <button className={styles.reply}>Reply</button>
+              </div>
+            </div>
+            {/* {comment.children &&
+              comment.children.map((child) => (
+                <div key={child.id} className={styles.border_second}>
+                  <div className={styles.comment_one}>
+                    <Avatar />
+                    <div className={styles.comment_one_info}>
+                      <h3>{child.user.name}</h3>
+                      <p>{child.content}</p>
+                      <button className={styles.reply}>Reply</button>
+                    </div>
+                  </div>
+                </div>
+              ))} */}
           </div>
         ))}
       </div>
