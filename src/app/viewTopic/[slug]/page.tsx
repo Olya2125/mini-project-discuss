@@ -16,6 +16,14 @@ export default async function ViewTopic(props: any) {
     where: {
       slug,
     },
+    include: {
+      posts: {
+        include: {
+          user: true,
+          comments: true,
+        },
+      },
+    },
   });
 
   if (!topic) {
@@ -36,7 +44,7 @@ export default async function ViewTopic(props: any) {
           <div className={styles.postmain}>
             <div className={styles.alltitle}>
               <TopicSlugListView topic={topic} />
-              <PostList posts={posts} />
+              <PostList posts={topic.posts} />
             </div>
           </div>
           <div className={styles.t}>
