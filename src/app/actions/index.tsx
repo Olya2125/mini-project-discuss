@@ -5,8 +5,6 @@ import { redirect } from 'next/navigation';
 export const createTopic = async (_prevState: { message: string }, formData: FormData) => {
   const slug = formData.get('slug') as string;
   const description = formData.get('description') as string;
-  // console.log('Slug:', slug); // Проверьте значение slug в консоли
-  // console.log('Description:', description); // Проверьте значение description в консоли
 
   try {
     if (!slug || slug.length < 3) {
@@ -17,7 +15,6 @@ export const createTopic = async (_prevState: { message: string }, formData: For
       return { message: 'Description should be longer' };
     }
 
-    // Проверяем уникальность slug перед созданием
     const existingTopic = await db.topic.findUnique({ where: { slug } });
     if (existingTopic) {
       return { message: 'Slug already exists. Please choose a different slug.' };
@@ -67,3 +64,46 @@ export const deleteTopic = async (slug: string) => {
   
   redirect(`/`);
 }
+
+export const createPost = async (_prevState: { message: string }, formData: FormData) => {
+  const title = formData.get('title') as string;
+  const content = formData.get('content') as string;
+  const userId = formData.get('userId') as string;
+  const topicId = formData.get('topicId') as string;
+
+  console.log('createPost called with:', { title, content, userId, topicId }); 
+
+  try {
+    // Проверка длины заголовка
+    if (!title || title.length < 3) {
+      return { message: 'Заголовок должен быть длиннее' };
+    }
+
+    // Проверка длины содержания
+    if (!content || content.length < 10) {
+      return { message: 'Содержание должно быть длиннее' };
+    }
+
+    // Создание поста в базе данных
+    const createdPost = await db.post.create({
+      data: {
+        title,
+        content,
+        userId,
+        topicId,
+      },
+    });
+
+    console.log('Созданный пост:', createdPost); 
+
+    return { message: 'Пост успешно создан' };
+
+  } catch (error: unknown) {
+    console.error('Ошибка при создании поста:', error); 
+    if (error instanceof Error) {
+      return { message: error.message };
+    } else {
+      return { message: 'Что-то пошло не так' };
+    }
+  }
+};
