@@ -7,6 +7,7 @@ import PostCard from '@/components/PostCard/page';
 import CreateTopicComponent from '@/components/createTopicComponent';
 import TopicList from '@/components/listTopic/page';
 import styles from "@/components/styles.module.css";
+import CommentList from '@/components/comments/comment-list';
 
 export default function Home() {
 
@@ -27,6 +28,7 @@ export default function Home() {
 
           <TopicList  title="Topics" />
         </div>
+
       </div>
     {/* <main className="flex  flex-col items-center justify-between p-5">
 
