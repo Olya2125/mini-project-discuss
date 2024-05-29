@@ -11,19 +11,23 @@ interface Post {
   comments: {
     length: number;
   };
+  topic: {
+    slug: string;
+  }
 }
 
 const PostList: React.FC<{ posts: Post[] }> = ({ posts }) => {
   return (
     <div className={styles.postmain}>
-      <h1>Posts</h1>
       <div>
         {posts.map((post) => (
           <PostCard
-            key={post.id}
-            title={post.title}
-            author={post.user.name || 'Unknown'} 
-            comments={`${post.comments.length} comments`}
+          key={post.id}
+          id={post.id}
+          slug={post.topic.slug}
+          title={post.title}
+          author={post.user.name || 'Unknown'}
+          comments={`${post.comments.length} comments`}
           />
         ))}
       </div>

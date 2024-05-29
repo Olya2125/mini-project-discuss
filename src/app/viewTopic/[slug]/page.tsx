@@ -21,6 +21,7 @@ export default async function ViewTopic(props: any) {
         include: {
           user: true,
           comments: true,
+          topic: true,
         },
       },
     },
