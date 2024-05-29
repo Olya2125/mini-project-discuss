@@ -1,6 +1,6 @@
-"use client";
-import styles from "@/components/styles.module.css";
-import { ReactNode } from "react";
+'use client';
+import styles from '@/components/styles.module.css';
+import { ReactNode } from 'react';
 import {
   Modal,
   ModalContent,
@@ -8,14 +8,14 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-} from "@nextui-org/react";
+} from '@nextui-org/react';
 
 type ModalWindowProps = {
   title: string;
   children: ReactNode;
   isOpen: boolean;
   onOpenChange: () => void;
-  formHandler: () => void; // Функция для обработки отправки формы
+  formHandler: () => void;
 };
 
 export default function ModalWindow({
@@ -26,8 +26,9 @@ export default function ModalWindow({
   formHandler,
 }: ModalWindowProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Предотвращаем перезагрузку страницы при отправке формы
-    formHandler(); // Вызываем функцию обработки формы
+    e.preventDefault(); 
+    console.log('handleSubmit called');
+    formHandler(); 
   };
 
   return (
