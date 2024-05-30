@@ -1,5 +1,5 @@
 import React from 'react';
-import PostCard from '../PostCard/page';
+import PostCard from '@/PostCard/page';
 import styles from '@/components/styles.module.css'
 
 
