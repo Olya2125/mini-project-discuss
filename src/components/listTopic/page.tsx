@@ -7,6 +7,7 @@ export default async function TopicList(props: any) {
   const topics = await db.topic.findMany(); 
 
   return (
+    <div>
     <div className={styles.topics}>
       <ul >
         <div >
@@ -21,6 +22,7 @@ export default async function TopicList(props: any) {
           ))}
         </div>
       </ul>
+    </div>
     </div>
   )
 }

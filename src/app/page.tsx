@@ -8,16 +8,17 @@ import CreateTopicComponent from '@/components/createTopicComponent';
 import TopicList from '@/components/listTopic/page';
 import styles from "@/components/styles.module.css";
 
+
 export default function Home() {
 
   return (
     <div> 
-
       <div className={styles.main_head}>
         <div className={styles.toppost}>
           <div className={styles.postmain} >
             <div className={styles.alltitle}>
-            <PostCard  title="Top Post"/>
+              <h3>Top post</h3>
+            <PostCard title='JavaScript' />
             </div>
             </div>
 
@@ -27,6 +28,7 @@ export default function Home() {
 
           <TopicList  title="Topics" />
         </div>
+
       </div>
     {/* <main className="flex  flex-col items-center justify-between p-5">
 
