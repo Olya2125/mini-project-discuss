@@ -18,7 +18,8 @@ export default function Home() {
         <div className={styles.toppost}>
           <div className={styles.postmain} >
             <div className={styles.alltitle}>
-            <PostCard  title="Top Post"/>
+              <h3>Top post</h3>
+            <PostCard title='JavaScript' />
             </div>
             </div>
 

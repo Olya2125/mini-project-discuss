@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
 import ModalWindow from "@/components/modalWindow";
-import TopicInput from "@/components/TopicInput";
 import { createTopic } from "@/app/actions";
+import OurInput from "@/components/ourInput";
 
 const CreateTopicComponent: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,9 +26,9 @@ const CreateTopicComponent: React.FC = () => {
       formData.append("description", description);
 
       const result = await createTopic({ message: "" }, formData);
-      console.log(result.message); // Обработка успешного создания темы
+      console.log(result.message);
 
-      closeModal(); // Закрыть модальное окно после создания темы
+      closeModal(); 
     } catch (error) {
       console.error("Ошибка при создании темы:", error);
     }
@@ -52,14 +52,14 @@ const CreateTopicComponent: React.FC = () => {
         onOpenChange={closeModal}
         formHandler={handleCreateTopic}
       >
-        <TopicInput
+        <OurInput
           id="slug"
           label="Name"
           placeholder="Name"
           value={slug}
           onChange={setSlug} // Используйте setSlug напрямую
         />
-        <TopicInput
+        <OurInput
           id="description"
           label="Description"
           placeholder="Description"

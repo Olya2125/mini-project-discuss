@@ -1,20 +1,39 @@
-import React from "react";
-import { Link } from "@nextui-org/react";
-import PostCard from "../PostCard/page";
-import styles from "@/components/styles.module.css";
+import React from 'react';
+import PostCard from '../PostCard/page';
+import styles from '@/components/styles.module.css';
 
+interface Post {
+  id: string;
+  title: string;
+  user: {
+    name: string | null; 
+  };
+  comments: {
+    length: number;
+  };
+  topic: {
+    slug: string;
+  }
+}
 
-
-function PostList({ title }: { title: string }) {
-
+const PostList: React.FC<{ posts: Post[] }> = ({ posts }) => {
   return (
     <div className={styles.postmain}>
-      <h1 >{title}</h1>
       <div>
-      <PostCard title=""/>
+        {posts.map((post) => (
+          <PostCard
+          key={post.id}
+          id={post.id}
+          slug={post.topic.slug}
+          title={post.title}
+          author={post.user.name || 'Unknown'}
+          comments={`${post.comments.length} comments`}
+          />
+        ))}
       </div>
     </div>
   );
-}
+};
 
 export default PostList;
+
