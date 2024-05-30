@@ -205,11 +205,11 @@ justify-content: center;
   .application{
     font-size: 18px;
     font-weight: 500;
-    max-width:400px;
+    max-width:500px;
   }
 .textarea{
   max-width:420px;
-  margin-top: 40px;
+  margin-top: 80px;
   margin-bottom: 40px;
   border: 2pm solid rgb(124,142,207)
 }
