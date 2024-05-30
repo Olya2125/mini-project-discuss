@@ -9,6 +9,8 @@ import TopicSlugListView from '@/components/Topic/ListSlugTopicView/page';
 import { deleteTopic } from '@/app/actions/topics';
 import CreatePostComponent from '@/components/Post/CreatePostComponent';
 import { SessionProvider } from 'next-auth/react';
+import BackButton from '@/components/backButton/page';
+
 
 export default async function ViewTopic(props: any) {
   const { slug } = props.params;
@@ -41,6 +43,7 @@ export default async function ViewTopic(props: any) {
   return (
     <SessionProvider>
       <div>
+<BackButton/>
         <div className={styles.main_head}>
           <div className={styles.postmain}>
             <div className={styles.alltitle}>

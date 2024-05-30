@@ -253,7 +253,7 @@ max-width: 520px;
 margin-bottom: 10px;
   }
   .textarea{
-    max-width: 420px;
+    max-width: 520px;
     margin-top: 40px;
     margin-bottom: 40px;
     border: 2px solid rgb(124, 142, 207);
@@ -310,3 +310,15 @@ max-width: 420px;
   margin-top: 20px;
   margin-bottom: 40px;
  }
+
+  .btnback {
+    margin-left: 260px;
+    margin-top: 20px;
+ color: #51575d;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: underline;
+  }
+  .btnback:hover{
+    color: #0862c9;
+  } 

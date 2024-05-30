@@ -2,10 +2,13 @@ import React from "react";
 import { Textarea } from "@nextui-org/input";
 import { Button, Avatar } from "@nextui-org/react";
 import styles from "@/components/styles.module.css";
+import BackButton from "@/components/backButton/page";
+
 
 export default function ViewPost() {
   return (
     <div>
+<BackButton/>
       <div className="flex flex-col items-center p-10">
         <h3 className={styles.alltitle}>Implementing Charts</h3>
         <p className={styles.application}>
@@ -34,7 +37,7 @@ export default function ViewPost() {
             <Avatar></Avatar>
             <div className={styles.comment_one_info}>
               <h3>Mike</h3>
-              <p>Heelo! I have problem. Maybe someone can help me?</p>
+              <p>Hello! I have problem. Maybe someone can help me?</p>
               <button className={styles.reply}>Reply</button>
             </div>
           </div>
@@ -42,7 +45,7 @@ export default function ViewPost() {
             <div className={styles.comment_one}>
               <Avatar></Avatar>
               <div className={styles.comment_one_info}>
-                <h3>Nik</h3>
+                <h3>Nick</h3>
                 <p>Hello Mike! What's the problem?</p>
                 <button className={styles.reply}>Reply</button>
               </div>
