@@ -11,6 +11,7 @@ import CreatePostComponent from '@/components/CreatePostComponent';
 import { SessionProvider } from 'next-auth/react';
 import BackButton from '@/components/backButton/page';
 
+
 export default async function ViewTopic(props: any) {
   const { slug } = props.params;
   const topic = await db.topic.findFirst({
@@ -42,7 +43,7 @@ export default async function ViewTopic(props: any) {
   return (
     <SessionProvider>
       <div>
-        <BackButton/>
+<BackButton/>
         <div className={styles.main_head}>
           <div className={styles.postmain}>
             <div className={styles.alltitle}>

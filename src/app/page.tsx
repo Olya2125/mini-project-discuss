@@ -13,7 +13,6 @@ export default function Home() {
 
   return (
     <div> 
-
       <div className={styles.main_head}>
         <div className={styles.toppost}>
           <div className={styles.postmain} >

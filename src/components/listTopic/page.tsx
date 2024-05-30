@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "@nextui-org/react";
 import { db } from "@/db";
 import styles from "@/components/styles.module.css";
-import BackButton from "../backButton/page";
 
 export default async function TopicList(props: any) {
   const topics = await db.topic.findMany(); 

@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import { NextUIProvider } from "@nextui-org/react";
 import Header from '@/components/header/page';
 import "./globals.css";
-import BackButton from "@/components/backButton/page";
 
 const inter = Inter({ subsets: ["latin"] });
 

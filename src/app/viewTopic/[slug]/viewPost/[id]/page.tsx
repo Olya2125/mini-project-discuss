@@ -6,6 +6,7 @@ import { Button, Avatar } from '@nextui-org/react';
 import styles from '@/components/styles.module.css';
 import BackButton from '@/components/backButton/page';
 
+
 export default async function ViewPost(props: any) {
   const { id, slug } = props.params;
   const post = await db.post.findUnique({
@@ -27,7 +28,7 @@ export default async function ViewPost(props: any) {
 
   return (
     <div>
-      <BackButton/>
+<BackButton/>
       <div className="flex flex-col items-center p-10">
         <h3 className={styles.alltitle}>{post.title}</h3>
         <p className={styles.application}>{post.content}</p>

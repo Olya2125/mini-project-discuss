@@ -4,10 +4,11 @@ import { Button, Avatar } from "@nextui-org/react";
 import styles from "@/components/styles.module.css";
 import BackButton from "@/components/backButton/page";
 
+
 export default function ViewPost() {
   return (
     <div>
-      <BackButton/>
+<BackButton/>
       <div className="flex flex-col items-center p-10">
         <h3 className={styles.alltitle}>Implementing Charts</h3>
         <p className={styles.application}>
