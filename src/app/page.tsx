@@ -3,9 +3,9 @@
 
 import React from 'react';
 
-import PostCard from '@/components/PostCard/page';
-import CreateTopicComponent from '@/components/createTopicComponent';
-import TopicList from '@/components/listTopic/page';
+import PostCard from '@/components/Post/PostCard/page';
+import CreateTopicComponent from '@/components/Topic/createTopicComponent';
+import TopicList from '@/components/Topic/listTopic/page';
 import styles from "@/components/styles.module.css";
 
 export default function Home() {

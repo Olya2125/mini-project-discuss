@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import ModalWindow from '@/components/modalWindow';
-import { createPost } from '@/app/actions';
+import { createPost } from '@/app/actions/posts';
 import { useSession } from 'next-auth/react';
 import OurInput from "@/components/ourInput";
 

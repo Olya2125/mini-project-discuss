@@ -1,5 +1,4 @@
 'use client';
-import styles from '@/components/styles.module.css';
 import { ReactNode } from 'react';
 import {
   Modal,

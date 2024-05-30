@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
 import ModalWindow from "@/components/modalWindow";
-import { createTopic } from "@/app/actions";
+import { createTopic } from "@/app/actions/topics";
 import OurInput from "@/components/ourInput";
 
 const CreateTopicComponent: React.FC = () => {

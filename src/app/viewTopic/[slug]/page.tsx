@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button } from '@nextui-org/react';
-import PostList from '@/components/PostList/page';
+import PostList from '@/components/Post/PostList/page';
 import { db } from '@/db';
 import { notFound } from 'next/navigation';
-import TopicListView from '@/components/listTopicView/page';
+import TopicListView from '@/components/Topic/listTopicView/page';
 import styles from '@/components/styles.module.css';
-import TopicSlugListView from '@/components/ListSlugTopicView/page';
-import { deleteTopic } from '@/app/actions';
-import CreatePostComponent from '@/components/CreatePostComponent';
+import TopicSlugListView from '@/components/Topic/ListSlugTopicView/page';
+import { deleteTopic } from '@/app/actions/topics';
+import CreatePostComponent from '@/components/Post/CreatePostComponent';
 import { SessionProvider } from 'next-auth/react';
 
 export default async function ViewTopic(props: any) {
