@@ -44,7 +44,6 @@ export default async function ViewPost(props: any) {
         >
           Save
         </Button>
-        
       </div>
       <div>
         <p className={styles.application_comments}>

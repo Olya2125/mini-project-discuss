@@ -60,7 +60,7 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
         type="submit"
         onClick={openModal}
       >
-        Create post
+        create post
       </Button>
       <ModalWindow
         title="Create Post"
