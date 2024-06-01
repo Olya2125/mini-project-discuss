@@ -3,9 +3,9 @@
 
 import React from 'react';
 
-import PostCard from '@/components/PostCard/page';
-import CreateTopicComponent from '@/components/createTopicComponent';
-import TopicList from '@/components/listTopic/page';
+import PostCard from '@/components/Post/PostCard/page';
+import CreateTopicComponent from '@/components/Topic/createTopicComponent';
+import TopicList from '@/components/Topic/listTopic/page';
 import styles from "@/components/styles.module.css";
 
 
@@ -25,11 +25,12 @@ export default function Home() {
         </div>
         <div className={styles.t}>
           <CreateTopicComponent />
-
           <TopicList  title="Topics" />
+
         </div>
 
       </div>
+
     {/* <main className="flex  flex-col items-center justify-between p-5">
 
       <form action={action.signIn}>

@@ -3,9 +3,10 @@
 import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import ModalWindow from '@/components/modalWindow';
-import { createPost } from '@/app/actions';
+import { createPost } from '@/app/actions/posts';
 import { useSession } from 'next-auth/react';
 import OurInput from "@/components/ourInput";
+import styles from '@/components/styles.module.css';
 
 const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,12 +26,12 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
     console.log('handleCreatePost called'); 
 
     if (!session?.user?.id) {
-      console.error('Пользователь не аутентифицирован');
+      console.error('User not authenticated');
       return;
     }
 
     try {
-      console.log('Форма данных:', { title, content, userId: session.user.id, topicId });
+      console.log('Form data:', { title, content, userId: session.user.id, topicId });
       const formData = new FormData();
       formData.append('title', title);
       formData.append('content', content);
@@ -40,13 +41,16 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
       const result = await createPost({ message: '' }, formData);
       console.log(result.message); 
 
-      if (result.message === 'Пост успешно создан') {
+      if (result.message === 'Post created successfully') {
+        setTitle('');
+        setContent('');
         closeModal();
+        window.location.reload(); // Перезагрузить страницу
       } else {
         console.error(result.message);
       }
     } catch (error) {
-      console.error('Ошибка при создании поста:', error);
+      console.error('Error creating post:', error);
     }
   };
 
@@ -59,8 +63,9 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
         radius="sm"
         type="submit"
         onClick={openModal}
+        className={styles.btn_create}
       >
-        create post
+        Create post
       </Button>
       <ModalWindow
         title="Create Post"

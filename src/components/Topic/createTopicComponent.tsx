@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/react";
 import ModalWindow from "@/components/modalWindow";
-import { createTopic } from "@/app/actions";
+import { createTopic } from "@/app/actions/topics";
 import OurInput from "@/components/ourInput";
 
 const CreateTopicComponent: React.FC = () => {
@@ -28,7 +28,14 @@ const CreateTopicComponent: React.FC = () => {
       const result = await createTopic({ message: "" }, formData);
       console.log(result.message);
 
-      closeModal(); 
+      if (result.message === 'Topic created successfully') {
+        setSlug('');
+        setDescription('');
+        closeModal();
+        window.location.reload();
+      } else {
+        console.error(result.message);
+      }
     } catch (error) {
       console.error("Ошибка при создании темы:", error);
     }
@@ -57,14 +64,14 @@ const CreateTopicComponent: React.FC = () => {
           label="Name"
           placeholder="Name"
           value={slug}
-          onChange={setSlug} // Используйте setSlug напрямую
+          onChange={setSlug}
         />
         <OurInput
           id="description"
           label="Description"
           placeholder="Description"
           value={description}
-          onChange={setDescription} // Используйте setDescription напрямую
+          onChange={setDescription}
         />
       </ModalWindow>
     </div>

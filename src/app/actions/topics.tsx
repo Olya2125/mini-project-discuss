@@ -45,6 +45,7 @@ export const createTopic = async (_prevState: { message: string }, formData: For
   }
 };
 
+
 export const getAllTopics = async () => {
   try {
     const topics = await db.topic.findMany();
@@ -56,54 +57,41 @@ export const getAllTopics = async () => {
 };
 
 export const deleteTopic = async (slug: string) => {
-  await db.topic.delete({
-      where: {
-          slug
-      }
-  })
-  
-  redirect(`/`);
-}
-
-export const createPost = async (_prevState: { message: string }, formData: FormData) => {
-  const title = formData.get('title') as string;
-  const content = formData.get('content') as string;
-  const userId = formData.get('userId') as string;
-  const topicId = formData.get('topicId') as string;
-
-  console.log('createPost called with:', { title, content, userId, topicId }); 
-
   try {
-    // Проверка длины заголовка
-    if (!title || title.length < 3) {
-      return { message: 'Заголовок должен быть длиннее' };
-    }
+    // Удаление топика и постов, комментариев связанных
+    await db.$transaction(async (prisma) => {
+      const topic = await prisma.topic.findUnique({
+        where: { slug },
+        include: {
+          posts: {
+            include: {
+              comments: true,
+            },
+          },
+        },
+      });
 
-    // Проверка длины содержания
-    if (!content || content.length < 10) {
-      return { message: 'Содержание должно быть длиннее' };
-    }
+      if (!topic) {
+        throw new Error('Topic not found');
+      }
 
-    // Создание поста в базе данных
-    const createdPost = await db.post.create({
-      data: {
-        title,
-        content,
-        userId,
-        topicId,
-      },
+      for (const post of topic.posts) {
+        await prisma.comment.deleteMany({
+          where: { postId: post.id },
+        });
+      }
+
+      await prisma.post.deleteMany({
+        where: { topicId: topic.id },
+      });
+
+      await prisma.topic.delete({
+        where: { id: topic.id },
+      });
     });
 
-    console.log('Созданный пост:', createdPost); 
-
-    return { message: 'Пост успешно создан' };
-
-  } catch (error: unknown) {
-    console.error('Ошибка при создании поста:', error); 
-    if (error instanceof Error) {
-      return { message: error.message };
-    } else {
-      return { message: 'Что-то пошло не так' };
-    }
+  } catch (error) {
+    console.error('Error deleting topic:', error);
+    throw new Error('Failed to delete topic');
   }
 };

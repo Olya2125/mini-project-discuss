@@ -1,5 +1,4 @@
 'use client';
-import styles from '@/components/styles.module.css';
 import { ReactNode } from 'react';
 import {
   Modal,
@@ -45,7 +44,7 @@ export default function ModalWindow({
               radius="sm"
               type="submit"
             >
-              Submit
+              Save
             </Button>
           </ModalFooter>
         </form>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from '@nextui-org/react';
 import styles from '@/components/styles.module.css';
+import DeletePostButton from '@/components/Post/DeletePostButton';
 
 interface PostProps {
   id: string;
@@ -22,6 +23,7 @@ const Post: React.FC<PostProps> = ({ id, slug, title, author, comments }) => {
           </div>
         </div>
       </Link>
+      <DeletePostButton postId={id} />
     </div>
   );
 };

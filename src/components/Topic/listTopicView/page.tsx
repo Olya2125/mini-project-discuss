@@ -13,8 +13,8 @@ export default function TopicListView({ topic}: TopicListViewProps) {
 
   return (
     <div className={styles.topics}>
-      <h1>{slug}</h1>
-      <p>{description}</p>
+      <h1 className={styles.post_title}>{slug}</h1>
+      <p className={styles.description_title}>{description}</p>
     </div>
   )
 }
