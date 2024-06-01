@@ -11,7 +11,7 @@ interface PostProps {
   comments: string;
 }
 
-const Post: React.FC<PostProps> = ({ id, slug, title, author, comments }) => {
+function Post({ id, slug, title, author, comments }: PostProps) {
   return (
     <div className={styles.postcard}>
       <Link href={`/viewTopic/${slug}/viewPost/${id}`}>
@@ -26,7 +26,7 @@ const Post: React.FC<PostProps> = ({ id, slug, title, author, comments }) => {
       <DeletePostButton postId={id} />
     </div>
   );
-};
+}
 
 const PostCard: React.FC<PostProps> = ({ id, slug, title, author, comments }) => {
   return (

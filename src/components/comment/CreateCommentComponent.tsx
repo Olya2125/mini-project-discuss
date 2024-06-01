@@ -6,7 +6,12 @@ import { createComment } from '@/app/actions/comments';
 import { useSession } from 'next-auth/react';
 import styles from '@/components/styles.module.css';
 
-const CreateCommentComponent: React.FC<{ postId: string, parentId?: string | null }> = ({ postId, parentId = null }) => {
+interface CreateCommentComponentProps {
+  postId: string;
+  parentId?: string | null;
+}
+
+export default function CreateCommentComponent({ postId, parentId = null }: CreateCommentComponentProps) {
   const [content, setContent] = useState('');
   const { data: session } = useSession();
 
@@ -60,6 +65,4 @@ const CreateCommentComponent: React.FC<{ postId: string, parentId?: string | nul
       </Button>
     </div>
   );
-};
-
-export default CreateCommentComponent;
+}

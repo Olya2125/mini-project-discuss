@@ -17,12 +17,12 @@ interface ConfirmModalProps {
   onConfirm: () => void;
 }
 
-const ConfirmModal: React.FC<ConfirmModalProps> = ({
+export default function ConfirmModal({
   title,
   isOpen,
   onClose,
   onConfirm,
-}) => {
+}: ConfirmModalProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} placement="center">
       <ModalContent>
@@ -37,6 +37,4 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
       </ModalContent>
     </Modal>
   );
-};
-
-export default ConfirmModal;
+}

@@ -7,14 +7,18 @@ import { deletePost } from '@/app/actions/posts';
 import styles from '@/components/styles.module.css';
 import ConfirmModal from '@/components/ConfirmModal';
 
-const DeletePostButton: React.FC<{ postId: string }> = ({ postId }) => {
+interface DeletePostButtonProps {
+  postId: string;
+}
+
+export default function DeletePostButton({ postId }: DeletePostButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const handleDeletePost = async () => {
     try {
       await deletePost(postId);
-      router.refresh(); // Обновляем страницу после удаления поста
+      router.refresh();
     } catch (error) {
       console.error('Error deleting post:', error);
     }
@@ -40,6 +44,4 @@ const DeletePostButton: React.FC<{ postId: string }> = ({ postId }) => {
       />
     </>
   );
-};
-
-export default DeletePostButton;
+}

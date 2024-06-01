@@ -11,7 +11,7 @@ interface CommentTreeProps {
   postId: string;
 }
 
-const CommentTree: React.FC<CommentTreeProps> = ({ comment, postId }) => {
+export default function CommentTree({ comment, postId }: CommentTreeProps) {
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
 
   return (
@@ -44,6 +44,4 @@ const CommentTree: React.FC<CommentTreeProps> = ({ comment, postId }) => {
       ))}
     </div>
   );
-};
-
-export default CommentTree;
+}

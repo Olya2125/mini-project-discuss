@@ -8,7 +8,11 @@ import { useSession } from 'next-auth/react';
 import OurInput from "@/components/ourInput";
 import styles from '@/components/styles.module.css';
 
-const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
+interface CreatePostComponentProps {
+  topicId: string;
+}
+
+export default function CreatePostComponent({ topicId }: CreatePostComponentProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -45,7 +49,7 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
         setTitle('');
         setContent('');
         closeModal();
-        window.location.reload(); // Перезагрузить страницу
+        window.location.reload();
       } else {
         console.error(result.message);
       }
@@ -78,18 +82,16 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
           label="Title"
           placeholder="Title"
           value={title}
-          onChange={setTitle}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <OurInput 
           id="content"
           label="Content"
           placeholder="Content"
           value={content}
-          onChange={setContent}
+          onChange={(e) => setContent(e.target.value)}
         />
       </ModalWindow>
     </div>
   );
-};
-
-export default CreatePostComponent;
+}

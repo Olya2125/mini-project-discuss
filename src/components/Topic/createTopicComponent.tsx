@@ -6,7 +6,7 @@ import ModalWindow from "@/components/modalWindow";
 import { createTopic } from "@/app/actions/topics";
 import OurInput from "@/components/ourInput";
 
-const CreateTopicComponent: React.FC = () => {
+export default function CreateTopicComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slug, setSlug] = useState("");
   const [description, setDescription] = useState("");
@@ -64,18 +64,16 @@ const CreateTopicComponent: React.FC = () => {
           label="Name"
           placeholder="Name"
           value={slug}
-          onChange={setSlug}
+          onChange={(e) => setSlug(e.target.value)}
         />
         <OurInput
           id="description"
           label="Description"
           placeholder="Description"
           value={description}
-          onChange={setDescription}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </ModalWindow>
     </div>
   );
-};
-
-export default CreateTopicComponent;
+}
