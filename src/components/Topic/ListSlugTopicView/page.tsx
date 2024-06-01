@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { Topic } from '@prisma/client';
 
 type TopicSlugListViewProps = {
@@ -7,7 +7,6 @@ type TopicSlugListViewProps = {
 }
 
 export default function TopicSlugListView({ topic }: TopicSlugListViewProps) {
-    
   const { slug } = topic;
 
   return (

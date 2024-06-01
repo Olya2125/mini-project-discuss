@@ -11,7 +11,8 @@ interface DeleteTopicButtonProps {
   slug: string;
 }
 
-export default function DeleteTopicButton({ slug }: DeleteTopicButtonProps) {
+export default function DeleteTopicButton(props: DeleteTopicButtonProps) {
+  const { slug } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
