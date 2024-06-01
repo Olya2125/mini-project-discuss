@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@nextui-org/react';
+import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
 import ModalWindow from '@/components/modalWindow';
 import { createPost } from '@/app/actions/posts';
 import { useSession } from 'next-auth/react';
@@ -16,6 +16,7 @@ export default function CreatePostComponent({ topicId }: CreatePostComponentProp
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
   const { data: session } = useSession();
 
   const openModal = () => {
@@ -26,11 +27,17 @@ export default function CreatePostComponent({ topicId }: CreatePostComponentProp
     setIsModalOpen(false);
   };
 
+  const closeNotification = () => {
+    setNotification(null);
+    window.location.reload();
+  };
+
   const handleCreatePost = async () => {
     console.log('handleCreatePost called'); 
 
     if (!session?.user?.id) {
       console.error('User not authenticated');
+      setNotification({ type: 'error', message: 'User not authenticated' });
       return;
     }
 
@@ -49,12 +56,14 @@ export default function CreatePostComponent({ topicId }: CreatePostComponentProp
         setTitle('');
         setContent('');
         closeModal();
-        window.location.reload();
+        setNotification({ type: 'success', message: 'Post created successfully' });
       } else {
         console.error(result.message);
+        setNotification({ type: 'error', message: result.message });
       }
     } catch (error) {
       console.error('Error creating post:', error);
+      setNotification({ type: 'error', message: 'Error creating post' });
     }
   };
 
@@ -92,6 +101,19 @@ export default function CreatePostComponent({ topicId }: CreatePostComponentProp
           onChange={(e) => setContent(e.target.value)}
         />
       </ModalWindow>
+      {notification && (
+        <Modal isOpen={!!notification} onClose={closeNotification}>
+          <ModalContent>
+            <ModalHeader>{notification.type === 'success' ? 'Success' : 'Error'}</ModalHeader>
+            <ModalBody>
+              <p>{notification.message}</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={closeNotification}>Close</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </div>
   );
 }

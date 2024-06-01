@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "@nextui-org/react";
+import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import ModalWindow from "@/components/modalWindow";
 import { createTopic } from "@/app/actions/topics";
 import OurInput from "@/components/ourInput";
@@ -10,6 +10,7 @@ export default function CreateTopicComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slug, setSlug] = useState("");
   const [description, setDescription] = useState("");
+  const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -17,6 +18,11 @@ export default function CreateTopicComponent() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const closeNotification = () => {
+    setNotification(null);
+    window.location.reload();
   };
 
   const handleCreateTopic = async () => {
@@ -32,12 +38,14 @@ export default function CreateTopicComponent() {
         setSlug('');
         setDescription('');
         closeModal();
-        window.location.reload();
+        setNotification({ type: 'success', message: 'Topic created successfully' });
       } else {
         console.error(result.message);
+        setNotification({ type: 'error', message: result.message });
       }
     } catch (error) {
       console.error("Ошибка при создании темы:", error);
+      setNotification({ type: 'error', message: 'Ошибка при создании темы' });
     }
   };
 
@@ -74,6 +82,19 @@ export default function CreateTopicComponent() {
           onChange={(e) => setDescription(e.target.value)}
         />
       </ModalWindow>
+      {notification && (
+        <Modal isOpen={!!notification} onClose={closeNotification}>
+          <ModalContent>
+            <ModalHeader>{notification.type === 'success' ? 'Success' : 'Error'}</ModalHeader>
+            <ModalBody>
+              <p>{notification.message}</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={closeNotification}>Close</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </div>
   );
 }

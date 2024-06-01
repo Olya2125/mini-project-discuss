@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button, Textarea } from '@nextui-org/react';
+import { Button, Textarea, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
 import { createComment } from '@/app/actions/comments';
 import { useSession } from 'next-auth/react';
 import styles from '@/components/styles.module.css';
@@ -13,11 +13,18 @@ interface CreateCommentComponentProps {
 
 export default function CreateCommentComponent({ postId, parentId = null }: CreateCommentComponentProps) {
   const [content, setContent] = useState('');
+  const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
   const { data: session } = useSession();
+
+  const closeNotification = () => {
+    setNotification(null);
+    window.location.reload();
+  };
 
   const handleCreateComment = async () => {
     if (!session?.user?.id) {
       console.error('User not authenticated');
+      setNotification({ type: 'error', message: 'User not authenticated' });
       return;
     }
 
@@ -35,12 +42,14 @@ export default function CreateCommentComponent({ postId, parentId = null }: Crea
 
       if (result.message === 'Comment created successfully') {
         setContent(''); 
-        window.location.reload(); 
+        setNotification({ type: 'success', message: 'Comment created successfully' });
       } else {
         console.error(result.message);
+        setNotification({ type: 'error', message: result.message });
       }
     } catch (error) {
       console.error('Error creating comment:', error);
+      setNotification({ type: 'error', message: 'Error creating comment' });
     }
   };
 
@@ -63,6 +72,19 @@ export default function CreateCommentComponent({ postId, parentId = null }: Crea
       >
         Add Comment
       </Button>
+      {notification && (
+        <Modal isOpen={!!notification} onClose={closeNotification}>
+          <ModalContent>
+            <ModalHeader>{notification.type === 'success' ? 'Success' : 'Error'}</ModalHeader>
+            <ModalBody>
+              <p>{notification.message}</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={closeNotification}>Close</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </div>
   );
 }
