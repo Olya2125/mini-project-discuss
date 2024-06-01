@@ -41,3 +41,14 @@ export const createComment = async (_prevState: { message: string }, formData: F
     }
   }
 };
+
+export const deleteComment = async (commentId: string) => {
+  try {
+    await db.comment.delete({
+      where: { id: commentId },
+    });
+  } catch (error) {
+    console.error('Error deleting comment:', error);
+    throw new Error('Failed to delete comment');
+  }
+};

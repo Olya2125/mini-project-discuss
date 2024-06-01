@@ -3,20 +3,20 @@
 import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-import { deleteTopic } from '@/app/actions/topics';
+import { deletePost } from '@/app/actions/posts';
 import styles from '@/components/styles.module.css';
 import ConfirmModal from '@/components/ConfirmModal';
 
-const DeleteTopicButton: React.FC<{ slug: string }> = ({ slug }) => {
+const DeletePostButton: React.FC<{ postId: string }> = ({ postId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
-  const handleDeleteTopic = async () => {
+  const handleDeletePost = async () => {
     try {
-      await deleteTopic(slug);
-      router.push('/'); // Перенаправление на главную страницу после удаления
+      await deletePost(postId);
+      router.refresh(); // Обновляем страницу после удаления поста
     } catch (error) {
-      console.error('Error deleting topic:', error);
+      console.error('Error deleting post:', error);
     }
   };
 
@@ -30,16 +30,16 @@ const DeleteTopicButton: React.FC<{ slug: string }> = ({ slug }) => {
         variant="ghost"
         onClick={() => setIsModalOpen(true)}
       >
-        Delete this topic
+        Delete
       </Button>
       <ConfirmModal
-        title="Delete Topic"
+        title="Delete Post"
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onConfirm={handleDeleteTopic}
+        onConfirm={handleDeletePost}
       />
     </>
   );
 };
 
-export default DeleteTopicButton;
+export default DeletePostButton;

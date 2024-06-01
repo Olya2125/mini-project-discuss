@@ -45,7 +45,7 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
         setTitle('');
         setContent('');
         closeModal();
-        window.location.reload();
+        window.location.reload(); // Перезагрузить страницу
       } else {
         console.error(result.message);
       }

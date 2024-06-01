@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Avatar, Button } from '@nextui-org/react';
 import styles from '@/components/styles.module.css';
 import CreateCommentComponent from '@/components/comment/CreateCommentComponent';
+import DeleteCommentButton from '@/components/comment/DeleteCommentButton';
 
 interface CommentTreeProps {
   comment: any;
@@ -26,6 +27,7 @@ const CommentTree: React.FC<CommentTreeProps> = ({ comment, postId }) => {
           >
             Reply
           </button>
+          <DeleteCommentButton commentId={comment.id} />
         </div>
       </div>
       {replyingTo === comment.id && (

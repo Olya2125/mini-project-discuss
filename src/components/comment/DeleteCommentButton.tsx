@@ -3,20 +3,20 @@
 import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-import { deleteTopic } from '@/app/actions/topics';
+import { deleteComment } from '@/app/actions/comments';
 import styles from '@/components/styles.module.css';
 import ConfirmModal from '@/components/ConfirmModal';
 
-const DeleteTopicButton: React.FC<{ slug: string }> = ({ slug }) => {
+const DeleteCommentButton: React.FC<{ commentId: string }> = ({ commentId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
-  const handleDeleteTopic = async () => {
+  const handleDeleteComment = async () => {
     try {
-      await deleteTopic(slug);
-      router.push('/'); // Перенаправление на главную страницу после удаления
+      await deleteComment(commentId);
+      router.refresh(); // Обновляем страницу после удаления комментария
     } catch (error) {
-      console.error('Error deleting topic:', error);
+      console.error('Error deleting comment:', error);
     }
   };
 
@@ -30,16 +30,16 @@ const DeleteTopicButton: React.FC<{ slug: string }> = ({ slug }) => {
         variant="ghost"
         onClick={() => setIsModalOpen(true)}
       >
-        Delete this topic
+        Delete
       </Button>
       <ConfirmModal
-        title="Delete Topic"
+        title="Delete Comment"
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onConfirm={handleDeleteTopic}
+        onConfirm={handleDeleteComment}
       />
     </>
   );
 };
 
-export default DeleteTopicButton;
+export default DeleteCommentButton;

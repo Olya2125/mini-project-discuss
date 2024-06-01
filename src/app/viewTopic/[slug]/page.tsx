@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from '@nextui-org/react';
 import PostList from '@/components/Post/PostList/page';
 import { db } from '@/db';
 import { notFound } from 'next/navigation';

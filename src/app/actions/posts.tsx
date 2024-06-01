@@ -40,3 +40,14 @@ export const createPost = async (_prevState: { message: string }, formData: Form
       }
     }
 };
+
+export const deletePost = async (postId: string) => {
+  try {
+    await db.post.delete({
+      where: { id: postId },
+    });
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    throw new Error('Failed to delete post');
+  }
+};

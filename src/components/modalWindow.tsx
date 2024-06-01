@@ -44,7 +44,7 @@ export default function ModalWindow({
               radius="sm"
               type="submit"
             >
-              Submit
+              Save
             </Button>
           </ModalFooter>
         </form>
