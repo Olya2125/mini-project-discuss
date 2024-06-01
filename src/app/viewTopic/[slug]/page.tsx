@@ -12,9 +12,10 @@ import DeleteTopicButton from '@/components/Topic/DeleteTopicButton';
 
 export default async function ViewTopic(props: any) {
   const { slug } = props.params;
+  const decodedSlug = decodeURIComponent(slug);
   const topic = await db.topic.findFirst({
     where: {
-      slug,
+      slug: decodedSlug,
     },
     include: {
       posts: {
@@ -30,12 +31,6 @@ export default async function ViewTopic(props: any) {
   if (!topic) {
     return notFound();
   }
-
-  const posts = await db.post.findMany({
-    where: {
-      topicId: topic.id,
-    },
-  });
 
   return (
     <SessionProvider>

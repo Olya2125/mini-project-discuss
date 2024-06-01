@@ -20,9 +20,9 @@ export const createTopic = async (_prevState: { message: string }, formData: For
       return { message: 'Slug already exists. Please choose a different slug.' };
     }
 
-    if (!/^[a-zA-Z0-9-]+$/.test(slug)) {
-      return { message: 'Temporary condition. Slug should only contain letters, numbers, and hyphens (-).' };
-    }
+    // if (!/^[a-zA-Z0-9-]+$/.test(slug)) {
+    //   return { message: 'Temporary condition. Slug should only contain letters, numbers, and hyphens (-).' };
+    // }
 
     const createdTopic = await db.topic.create({
       data: {
@@ -58,10 +58,11 @@ export const getAllTopics = async () => {
 
 export const deleteTopic = async (slug: string) => {
   try {
-    // Удаление топика и постов, комментариев связанных
+    const decodedSlug = decodeURIComponent(slug);
+
     await db.$transaction(async (prisma) => {
       const topic = await prisma.topic.findUnique({
-        where: { slug },
+        where: { slug: decodedSlug },
         include: {
           posts: {
             include: {
@@ -89,7 +90,6 @@ export const deleteTopic = async (slug: string) => {
         where: { id: topic.id },
       });
     });
-
   } catch (error) {
     console.error('Error deleting topic:', error);
     throw new Error('Failed to delete topic');
