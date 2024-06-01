@@ -15,6 +15,9 @@ const CommentTree: React.FC<CommentTreeProps> = ({ comment, postId }) => {
 
   return (
     <div className={styles.border}>
+
+
+      
       <div className={styles.comment_one}>
         <Avatar />
         <div className={styles.comment_one_info}>
@@ -30,11 +33,15 @@ const CommentTree: React.FC<CommentTreeProps> = ({ comment, postId }) => {
       </div>
       {replyingTo === comment.id && (
         <div className={styles.reply_form}>
-          <CreateCommentComponent postId={postId} parentId={comment.id} />
+          <CreateCommentComponent postId={postId} parentId={comment.id}  />
         </div>
       )}
       {comment.children && comment.children.map((child: any) => (
-        <CommentTree key={child.id} comment={child} postId={postId} />
+        <div className={styles.border_second}>
+        <div className={styles.comment_one_info}>
+        <CommentTree  key={child.id} comment={child} postId={postId} />
+        </div>
+        </div>
       ))}
     </div>
   );

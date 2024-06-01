@@ -6,6 +6,7 @@ import ModalWindow from '@/components/modalWindow';
 import { createPost } from '@/app/actions/posts';
 import { useSession } from 'next-auth/react';
 import OurInput from "@/components/ourInput";
+import styles from '@/components/styles.module.css';
 
 const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,8 +60,9 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
         radius="sm"
         type="submit"
         onClick={openModal}
+        className={styles.btn_create}
       >
-        create post
+        Create post
       </Button>
       <ModalWindow
         title="Create Post"

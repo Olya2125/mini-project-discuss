@@ -25,11 +25,12 @@ export default function Home() {
         </div>
         <div className={styles.t}>
           <CreateTopicComponent />
-
           <TopicList  title="Topics" />
+
         </div>
 
       </div>
+
     {/* <main className="flex  flex-col items-center justify-between p-5">
 
       <form action={action.signIn}>
