@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button, Textarea } from '@nextui-org/react';
 import { createComment } from '@/app/actions/comments';
 import { useSession } from 'next-auth/react';
-import styles from '@/components/styles.module.css'
+import styles from '@/components/styles.module.css';
 
 const CreateCommentComponent: React.FC<{ postId: string, parentId?: string | null }> = ({ postId, parentId = null }) => {
   const [content, setContent] = useState('');
@@ -46,19 +46,17 @@ const CreateCommentComponent: React.FC<{ postId: string, parentId?: string | nul
         onChange={(e) => setContent(e.target.value)}
         className={styles.textarea}
       />
-
-<Button
-className={styles.btn_comment}
-          color="primary"
-          variant="solid"
-          size="md"
-          radius="sm"
-          type="submit"
-          onClick={handleCreateComment}
-        >
-          Add Comment
-        </Button>
-
+      <Button
+        className={styles.btn_comment}
+        color="primary"
+        variant="solid"
+        size="md"
+        radius="sm"
+        type="submit"
+        onClick={handleCreateComment}
+      >
+        Add Comment
+      </Button>
     </div>
   );
 };
