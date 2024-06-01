@@ -42,9 +42,10 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
       console.log(result.message); 
 
       if (result.message === 'Post created successfully') {
-        setTitle(''); // Очистить поле title
-        setContent(''); // Очистить поле content
-        closeModal(); // Закрыть модальное окно
+        setTitle('');
+        setContent('');
+        closeModal();
+        window.location.reload();
       } else {
         console.error(result.message);
       }

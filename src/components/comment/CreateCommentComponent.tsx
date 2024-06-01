@@ -29,7 +29,8 @@ const CreateCommentComponent: React.FC<{ postId: string, parentId?: string | nul
       console.log(result.message);
 
       if (result.message === 'Comment created successfully') {
-        setContent('');
+        setContent(''); 
+        window.location.reload(); 
       } else {
         console.error(result.message);
       }

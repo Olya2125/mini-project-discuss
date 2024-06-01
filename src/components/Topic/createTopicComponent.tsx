@@ -29,9 +29,10 @@ const CreateTopicComponent: React.FC = () => {
       console.log(result.message);
 
       if (result.message === 'Topic created successfully') {
-        setSlug(''); // Очистить поле slug
-        setDescription(''); // Очистить поле description
-        closeModal(); // Закрыть модальное окно
+        setSlug('');
+        setDescription('');
+        closeModal();
+        window.location.reload();
       } else {
         console.error(result.message);
       }
