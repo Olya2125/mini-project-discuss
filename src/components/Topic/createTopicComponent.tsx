@@ -28,7 +28,13 @@ const CreateTopicComponent: React.FC = () => {
       const result = await createTopic({ message: "" }, formData);
       console.log(result.message);
 
-      closeModal(); 
+      if (result.message === 'Topic created successfully') {
+        setSlug(''); // Очистить поле slug
+        setDescription(''); // Очистить поле description
+        closeModal(); // Закрыть модальное окно
+      } else {
+        console.error(result.message);
+      }
     } catch (error) {
       console.error("Ошибка при создании темы:", error);
     }
@@ -57,14 +63,14 @@ const CreateTopicComponent: React.FC = () => {
           label="Name"
           placeholder="Name"
           value={slug}
-          onChange={setSlug} // Используйте setSlug напрямую
+          onChange={setSlug}
         />
         <OurInput
           id="description"
           label="Description"
           placeholder="Description"
           value={description}
-          onChange={setDescription} // Используйте setDescription напрямую
+          onChange={setDescription}
         />
       </ModalWindow>
     </div>

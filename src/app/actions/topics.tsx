@@ -33,8 +33,7 @@ export const createTopic = async (_prevState: { message: string }, formData: For
 
     console.log('Created topic:', createdTopic); 
 
-    // return { message: 'Topic created successfully' };
-    //redirect(`/`);
+    return { message: 'Topic created successfully' };
     
   } catch (error: unknown) {
     console.error('Error creating topic:', error); 
@@ -45,6 +44,7 @@ export const createTopic = async (_prevState: { message: string }, formData: For
     }
   }
 };
+
 
 export const getAllTopics = async () => {
   try {

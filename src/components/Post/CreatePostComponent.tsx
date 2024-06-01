@@ -26,12 +26,12 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
     console.log('handleCreatePost called'); 
 
     if (!session?.user?.id) {
-      console.error('Пользователь не аутентифицирован');
+      console.error('User not authenticated');
       return;
     }
 
     try {
-      console.log('Форма данных:', { title, content, userId: session.user.id, topicId });
+      console.log('Form data:', { title, content, userId: session.user.id, topicId });
       const formData = new FormData();
       formData.append('title', title);
       formData.append('content', content);
@@ -41,13 +41,15 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
       const result = await createPost({ message: '' }, formData);
       console.log(result.message); 
 
-      if (result.message === 'Пост успешно создан') {
-        closeModal();
+      if (result.message === 'Post created successfully') {
+        setTitle(''); // Очистить поле title
+        setContent(''); // Очистить поле content
+        closeModal(); // Закрыть модальное окно
       } else {
         console.error(result.message);
       }
     } catch (error) {
-      console.error('Ошибка при создании поста:', error);
+      console.error('Error creating post:', error);
     }
   };
 
