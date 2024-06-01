@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from '@nextui-org/react';
 import styles from '@/components/styles.module.css';
+import DeletePostButton from '@/components/Post/DeletePostButton';
 
 interface PostProps {
   id: string;
@@ -10,7 +11,7 @@ interface PostProps {
   comments: string;
 }
 
-const Post: React.FC<PostProps> = ({ id, slug, title, author, comments }) => {
+function Post({ id, slug, title, author, comments }: PostProps) {
   return (
     <div className={styles.postcard}>
       <Link href={`/viewTopic/${slug}/viewPost/${id}`}>
@@ -22,9 +23,10 @@ const Post: React.FC<PostProps> = ({ id, slug, title, author, comments }) => {
           </div>
         </div>
       </Link>
+      <DeletePostButton postId={id} />
     </div>
   );
-};
+}
 
 const PostCard: React.FC<PostProps> = ({ id, slug, title, author, comments }) => {
   return (
