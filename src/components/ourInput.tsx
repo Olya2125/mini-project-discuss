@@ -3,16 +3,12 @@
 import React from 'react';
 import { Input, InputProps } from '@nextui-org/react';
 
-type OurInputProps = InputProps & {
+interface OurInputProps extends InputProps {
   value: string;
-  onChange: (value: string) => void;
-};
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-const OurInput: React.FC<OurInputProps> = ({ label, placeholder, value, onChange, ...rest }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
-
+export default function OurInput({ label, placeholder, value, onChange, ...rest }: OurInputProps) {
   return (
     <Input
       {...rest}
@@ -20,11 +16,8 @@ const OurInput: React.FC<OurInputProps> = ({ label, placeholder, value, onChange
       label={label}
       placeholder={placeholder}
       value={value}
-      onChange={handleChange}
+      onChange={onChange}
       variant="bordered"
     />
   );
-};
-
-export default OurInput;
-
+}

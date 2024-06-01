@@ -7,14 +7,18 @@ import { deleteTopic } from '@/app/actions/topics';
 import styles from '@/components/styles.module.css';
 import ConfirmModal from '@/components/ConfirmModal';
 
-const DeleteTopicButton: React.FC<{ slug: string }> = ({ slug }) => {
+interface DeleteTopicButtonProps {
+  slug: string;
+}
+
+export default function DeleteTopicButton({ slug }: DeleteTopicButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const handleDeleteTopic = async () => {
     try {
       await deleteTopic(slug);
-      router.push('/'); // Перенаправление на главную страницу после удаления
+      router.push('/');
     } catch (error) {
       console.error('Error deleting topic:', error);
     }
@@ -40,6 +44,4 @@ const DeleteTopicButton: React.FC<{ slug: string }> = ({ slug }) => {
       />
     </>
   );
-};
-
-export default DeleteTopicButton;
+}

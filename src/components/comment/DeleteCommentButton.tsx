@@ -7,14 +7,18 @@ import { deleteComment } from '@/app/actions/comments';
 import styles from '@/components/styles.module.css';
 import ConfirmModal from '@/components/ConfirmModal';
 
-const DeleteCommentButton: React.FC<{ commentId: string }> = ({ commentId }) => {
+interface DeleteCommentButtonProps {
+  commentId: string;
+}
+
+export default function DeleteCommentButton({ commentId }: DeleteCommentButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const handleDeleteComment = async () => {
     try {
       await deleteComment(commentId);
-      router.refresh(); // Обновляем страницу после удаления комментария
+      router.refresh();
     } catch (error) {
       console.error('Error deleting comment:', error);
     }
@@ -40,6 +44,4 @@ const DeleteCommentButton: React.FC<{ commentId: string }> = ({ commentId }) => 
       />
     </>
   );
-};
-
-export default DeleteCommentButton;
+}

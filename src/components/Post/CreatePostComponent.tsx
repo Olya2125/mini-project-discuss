@@ -1,17 +1,22 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@nextui-org/react';
+import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
 import ModalWindow from '@/components/modalWindow';
 import { createPost } from '@/app/actions/posts';
 import { useSession } from 'next-auth/react';
 import OurInput from "@/components/ourInput";
 import styles from '@/components/styles.module.css';
 
-const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
+interface CreatePostComponentProps {
+  topicId: string;
+}
+
+export default function CreatePostComponent({ topicId }: CreatePostComponentProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
   const { data: session } = useSession();
 
   const openModal = () => {
@@ -22,11 +27,17 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
     setIsModalOpen(false);
   };
 
+  const closeNotification = () => {
+    setNotification(null);
+    window.location.reload();
+  };
+
   const handleCreatePost = async () => {
     console.log('handleCreatePost called'); 
 
     if (!session?.user?.id) {
       console.error('User not authenticated');
+      setNotification({ type: 'error', message: 'User not authenticated' });
       return;
     }
 
@@ -45,12 +56,14 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
         setTitle('');
         setContent('');
         closeModal();
-        window.location.reload(); // Перезагрузить страницу
+        setNotification({ type: 'success', message: 'Post created successfully' });
       } else {
         console.error(result.message);
+        setNotification({ type: 'error', message: result.message });
       }
     } catch (error) {
       console.error('Error creating post:', error);
+      setNotification({ type: 'error', message: 'Error creating post' });
     }
   };
 
@@ -78,18 +91,29 @@ const CreatePostComponent: React.FC<{ topicId: string }> = ({ topicId }) => {
           label="Title"
           placeholder="Title"
           value={title}
-          onChange={setTitle}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <OurInput 
           id="content"
           label="Content"
           placeholder="Content"
           value={content}
-          onChange={setContent}
+          onChange={(e) => setContent(e.target.value)}
         />
       </ModalWindow>
+      {notification && (
+        <Modal isOpen={!!notification} onClose={closeNotification}>
+          <ModalContent>
+            <ModalHeader>{notification.type === 'success' ? 'Success' : 'Error'}</ModalHeader>
+            <ModalBody>
+              <p>{notification.message}</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={closeNotification}>Close</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </div>
   );
-};
-
-export default CreatePostComponent;
+}
