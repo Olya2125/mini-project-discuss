@@ -57,11 +57,41 @@ export const getAllTopics = async () => {
 };
 
 export const deleteTopic = async (slug: string) => {
-  await db.topic.delete({
-      where: {
-          slug
+  try {
+    // Удаление топика и постов, комментариев связанных
+    await db.$transaction(async (prisma) => {
+      const topic = await prisma.topic.findUnique({
+        where: { slug },
+        include: {
+          posts: {
+            include: {
+              comments: true,
+            },
+          },
+        },
+      });
+
+      if (!topic) {
+        throw new Error('Topic not found');
       }
-  })
-  
-  redirect(`/`);
-}
+
+      for (const post of topic.posts) {
+        await prisma.comment.deleteMany({
+          where: { postId: post.id },
+        });
+      }
+
+      await prisma.post.deleteMany({
+        where: { topicId: topic.id },
+      });
+
+      await prisma.topic.delete({
+        where: { id: topic.id },
+      });
+    });
+
+  } catch (error) {
+    console.error('Error deleting topic:', error);
+    throw new Error('Failed to delete topic');
+  }
+};

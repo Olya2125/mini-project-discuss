@@ -6,11 +6,10 @@ import { notFound } from 'next/navigation';
 import TopicListView from '@/components/Topic/listTopicView/page';
 import styles from '@/components/styles.module.css';
 import TopicSlugListView from '@/components/Topic/ListSlugTopicView/page';
-import { deleteTopic } from '@/app/actions/topics';
 import CreatePostComponent from '@/components/Post/CreatePostComponent';
 import { SessionProvider } from 'next-auth/react';
 import BackButton from '@/components/backButton/page';
-
+import DeleteTopicButton from '@/components/Topic/DeleteTopicButton';
 
 export default async function ViewTopic(props: any) {
   const { slug } = props.params;
@@ -33,7 +32,6 @@ export default async function ViewTopic(props: any) {
     return notFound();
   }
 
-  // Получение постов, связанных с данной темой
   const posts = await db.post.findMany({
     where: {
       topicId: topic.id,
@@ -43,7 +41,7 @@ export default async function ViewTopic(props: any) {
   return (
     <SessionProvider>
       <div>
-<BackButton/>
+        <BackButton />
         <div className={styles.main_head}>
           <div className={styles.postmain}>
             <div className={styles.alltitle}>
@@ -54,18 +52,7 @@ export default async function ViewTopic(props: any) {
           <div className={styles.t}>
             <CreatePostComponent topicId={topic.id} />
             <TopicListView topic={topic} />
-            <form action={deleteTopic.bind(null, slug)}>
-              <Button
-                className={styles.btn_del}
-                color="primary"
-                size="sm"
-                radius="sm"
-                variant="ghost"
-                type="submit"
-              >
-                Delete this topic 
-              </Button>
-            </form>
+            <DeleteTopicButton slug={slug} />
           </div>
         </div>
       </div>
