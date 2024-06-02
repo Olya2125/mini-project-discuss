@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import styles from '@/components/styles.module.css';
 import {
   Modal,
   ModalContent,
@@ -24,15 +25,15 @@ export default function ConfirmModal({
   onConfirm,
 }: ConfirmModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} placement="center">
+    <Modal isOpen={isOpen} onClose={onClose} placement="center" className={styles.modal}>
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
-        <ModalBody>
+        <ModalBody >
           <p>Are you sure you want to delete?</p>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button color="error" onClick={onConfirm}>Delete</Button>
+          <Button onClick={onClose} className={styles.btn_chanel}>Cancel</Button>
+          <Button  className={styles.btndelete} onClick={onConfirm}>Delete</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

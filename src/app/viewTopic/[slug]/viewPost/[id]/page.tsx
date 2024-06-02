@@ -42,7 +42,7 @@ export default async function ViewPost(props: any) {
     <SessionProvider>
       <BackButton />
       <div>
-        <div className="flex flex-col items-center p-10">
+        <div className="flex flex-col ">
           <h3 className={styles.alltitle}>{post.title}</h3>
           <p className={styles.application}>{post.content}</p>
           <CreateCommentComponent postId={post.id} />

@@ -1,22 +1,34 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
-import ModalWindow from '@/components/modalWindow';
-import { createPost } from '@/app/actions/posts';
-import { useSession } from 'next-auth/react';
+import React, { useState } from "react";
+import {
+  Button,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "@nextui-org/react";
+import ModalWindow from "@/components/modalWindow";
+import { createPost } from "@/app/actions/posts";
+import { useSession } from "next-auth/react";
 import OurInput from "@/components/ourInput";
-import styles from '@/components/styles.module.css';
+import styles from "@/components/styles.module.css";
 
 interface CreatePostComponentProps {
   topicId: string;
 }
 
-export default function CreatePostComponent({ topicId }: CreatePostComponentProps) {
+export default function CreatePostComponent({
+  topicId,
+}: CreatePostComponentProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [notification, setNotification] = useState<{
+    type: string;
+    message: string;
+  } | null>(null);
   const { data: session } = useSession();
 
   const openModal = () => {
@@ -33,37 +45,45 @@ export default function CreatePostComponent({ topicId }: CreatePostComponentProp
   };
 
   const handleCreatePost = async () => {
-    console.log('handleCreatePost called'); 
+    console.log("handleCreatePost called");
 
     if (!session?.user?.id) {
-      console.error('User not authenticated');
-      setNotification({ type: 'error', message: 'User not authenticated' });
+      console.error("User not authenticated");
+      setNotification({ type: "error", message: "User not authenticated" });
       return;
     }
 
     try {
-      console.log('Form data:', { title, content, userId: session.user.id, topicId });
+      console.log("Form data:", {
+        title,
+        content,
+        userId: session.user.id,
+        topicId,
+      });
       const formData = new FormData();
-      formData.append('title', title);
-      formData.append('content', content);
-      formData.append('userId', session.user.id);  
-      formData.append('topicId', topicId);
+      formData.append("title", title);
+      formData.append("content", content);
+      formData.append("userId", session.user.id);
+      formData.append("topicId", topicId);
 
-      const result = await createPost({ message: '' }, formData);
-      console.log(result.message); 
+      const result = await createPost({ message: "" }, formData);
+      console.log(result.message);
 
-      if (result.message === 'Post created successfully') {
-        setTitle('');
-        setContent('');
+      if (result.message === "Post created successfully") {
+        setTitle("");
+        setContent("");
         closeModal();
-        setNotification({ type: 'success', message: 'Post created successfully' });
+        setNotification({
+          type: "success",
+          message: "Post created successfully",
+        });
       } else {
         console.error(result.message);
-        setNotification({ type: 'error', message: result.message });
+        setNotification({ type: "error", message: result.message });
       }
     } catch (error) {
-      console.error('Error creating post:', error);
-      setNotification({ type: 'error', message: 'Error creating post' });
+      console.error("Error creating post:", error);
+      setNotification({ type: "error", message: "Error creating post" });
     }
   };
 
@@ -86,14 +106,14 @@ export default function CreatePostComponent({ topicId }: CreatePostComponentProp
         onOpenChange={closeModal}
         formHandler={handleCreatePost}
       >
-        <OurInput 
+        <OurInput
           id="title"
           label="Title"
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <OurInput 
+        <OurInput
           id="content"
           label="Content"
           placeholder="Content"
@@ -104,7 +124,9 @@ export default function CreatePostComponent({ topicId }: CreatePostComponentProp
       {notification && (
         <Modal isOpen={!!notification} onClose={closeNotification}>
           <ModalContent>
-            <ModalHeader>{notification.type === 'success' ? 'Success' : 'Error'}</ModalHeader>
+            <ModalHeader>
+              {notification.type === "success" ? "Success" : "Error"}
+            </ModalHeader>
             <ModalBody>
               <p>{notification.message}</p>
             </ModalBody>

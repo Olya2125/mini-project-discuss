@@ -33,14 +33,12 @@ export default function DeleteTopicButton({ slug }: DeleteTopicButtonProps) {
   return (
     <>
       <Button
-        className={styles.btn_del}
-        color="primary"
-        size="sm"
+        className={styles.btn_delete}
+        size="lg"
         radius="sm"
-        variant="ghost"
         onClick={() => setIsModalOpen(true)}
       >
-        Delete this topic
+        Delete 
       </Button>
       <ConfirmModal
         title="Delete Topic"
