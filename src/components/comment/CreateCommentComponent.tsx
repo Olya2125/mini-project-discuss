@@ -62,12 +62,7 @@ export default function CreateCommentComponent({ postId, parentId = null }: Crea
         className={styles.textarea}
       />
       <Button
-        className={styles.btn_comment}
-        color="primary"
-        variant="solid"
-        size="md"
-        radius="sm"
-        type="submit"
+className={styles.btn_chanel}
         onClick={handleCreateComment}
       >
         Add Comment

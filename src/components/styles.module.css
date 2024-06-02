@@ -46,7 +46,7 @@ margin-top: 20px;
     font-size: 40px;
     color: #021A36;
     font-weight: 700;
-margin-top: -20px;
+margin-top: 40px
   }
 
   .postcard{
@@ -247,6 +247,7 @@ justify-content: center;
     font-size: 18px;
     font-weight: 500;
     max-width:500px;
+    margin-top: 20px;
   }
 .textarea{
   width:420px;
