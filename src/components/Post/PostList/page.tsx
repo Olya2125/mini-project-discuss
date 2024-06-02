@@ -18,9 +18,10 @@ interface Post {
 
 interface PostListProps {
   posts: Post[];
+  showDeleteButton?: boolean;
 }
 
-export default function PostList({ posts }: PostListProps) {
+export default function PostList({ posts, showDeleteButton = true }: PostListProps) {
   return (
     <div className={styles.postmain}>
       <div>
@@ -32,6 +33,7 @@ export default function PostList({ posts }: PostListProps) {
             title={post.title}
             author={post.user.name || 'Unknown'}
             comments={`${post.comments.length} comments`}
+            showDeleteButton={showDeleteButton}
           />
         ))}
       </div>

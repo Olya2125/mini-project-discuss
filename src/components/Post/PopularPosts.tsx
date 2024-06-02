@@ -1,4 +1,3 @@
-// src/components/Post/PopularPosts.tsx
 'use server';
 
 import React from 'react';
@@ -22,6 +21,7 @@ export default async function PopularPosts() {
               title={post.title}
               author={post.user.name || 'Unknown'}
               comments={`${post.comments.length} comments`}
+              showDeleteButton={false}
             />
           ))}
         </div>

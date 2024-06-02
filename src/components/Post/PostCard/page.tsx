@@ -1,3 +1,5 @@
+// src/components/Post/PostCard/page.tsx
+
 import React from 'react';
 import { Link } from '@nextui-org/react';
 import styles from '@/components/styles.module.css';
@@ -9,9 +11,10 @@ interface PostProps {
   title: string;
   author: string;
   comments: string;
+  showDeleteButton?: boolean;
 }
 
-function Post({ id, slug, title, author, comments }: PostProps) {
+function PostCard({ id, slug, title, author, comments, showDeleteButton = true }: PostProps) {
   return (
     <div className={styles.postcard}>
       <Link href={`/viewTopic/${slug}/viewPost/${id}`}>
@@ -23,17 +26,9 @@ function Post({ id, slug, title, author, comments }: PostProps) {
           </div>
         </div>
       </Link>
-      <DeletePostButton postId={id} />
+      {showDeleteButton && <DeletePostButton postId={id} />} 
     </div>
   );
 }
-
-const PostCard: React.FC<PostProps> = ({ id, slug, title, author, comments }) => {
-  return (
-    <div>
-      <Post id={id} slug={slug} title={title} author={author} comments={comments} />
-    </div>
-  );
-};
 
 export default PostCard;
