@@ -1,5 +1,3 @@
-// src/components/Post/PostCard/page.tsx
-
 import React from 'react';
 import { Link } from '@nextui-org/react';
 import styles from '@/components/styles.module.css';
