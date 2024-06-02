@@ -51,3 +51,25 @@ export const deletePost = async (postId: string) => {
     throw new Error('Failed to delete post');
   }
 };
+
+export const getPopularPosts = async () => {
+  try {
+    const popularPosts = await db.post.findMany({
+      orderBy: {
+        comments: {
+          _count: 'desc',
+        },
+      },
+      take: 5,
+      include: {
+        user: true,
+        comments: true,
+        topic: true,
+      },
+    });
+    return popularPosts;
+  } catch (error) {
+    console.error('Error fetching popular posts:', error);
+    return [];
+  }
+};
