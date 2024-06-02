@@ -80,6 +80,10 @@ margin-top: 20px;
   color: #021A36;
   font-weight: 600;
 }
+
+.description_title{
+  margin-top: 10px;
+}
 .span{
   margin-top: 38px;
   color: #3d3f43;
@@ -117,11 +121,15 @@ font-weight: 600;
 margin-left: 10px;
 color: #021A36;
 font-weight: 700;
+margin-left: 30px;
+}
+.btn_create:hover{
+  background-color: #010e1d;
 }
   .t{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
     margin-top: 80px;
   }
 
@@ -173,10 +181,10 @@ font-weight: 700;
 .topics{
   display: flex;
   flex-direction: column;
-  justify-content: center;
+justify-content: flex-start;
   border: 2px solid #a4a2a2;
   border-radius: 8px;
-  width: 140px;
+  width: 180px;
   align-self: center;
   margin-top: 20px;
   padding: 20px 20px 20px 20px ;
@@ -186,6 +194,11 @@ font-weight: 700;
     font-size: 18px;
     color: #021A36;
     font-weight: 600;
+  }
+
+  .btn_create{
+margin-left: 20px;
+
   }
   .ul{
 display: flex;
@@ -205,15 +218,23 @@ justify-content: center;
   .application{
     font-size: 18px;
     font-weight: 500;
-    max-width:400px;
+    max-width:500px;
   }
 .textarea{
-  max-width:420px;
-  margin-top: 40px;
+  width:420px;
+  margin-top: 80px;
   margin-bottom: 40px;
   border: 2pm solid rgb(124,142,207)
 }
 
+.btn_comment{
+  display: flex;
+  justify-content: center;
+}
+
+.btn_comment:hover{
+  background-color: #010e1d;
+}
   .modal{
     outline: none;
     border-style: none;
@@ -253,7 +274,7 @@ max-width: 520px;
 margin-bottom: 10px;
   }
   .textarea{
-    max-width: 520px;
+    max-width: 420px;
     margin-top: 40px;
     margin-bottom: 40px;
     border: 2px solid rgb(124, 142, 207);
@@ -285,7 +306,9 @@ margin-top: 30px;
   margin-left: 20px;
  }
  .comment_one_info{
-  margin-left: 20px;
+  margin-left: 10px;
+max-width: 420px;
+
  }
 
  .reply{
@@ -303,14 +326,10 @@ margin-top: 10px;
  .border_second{
   display: flex;
   flex-direction: column;
-max-width: 420px;
-  border-radius: 12px;
-  border: 1px solid rgb(200, 204, 216);
   margin-left: 40px;
   margin-top: 20px;
   margin-bottom: 40px;
  }
-
 
   .btnback {
     margin-left: 260px;
@@ -323,4 +342,3 @@ max-width: 420px;
   .btnback:hover{
     color: #0862c9;
   } 
-  
