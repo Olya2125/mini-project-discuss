@@ -1,5 +1,7 @@
-'use client';
-import { ReactNode } from 'react';
+"use client";
+import { ReactNode } from "react";
+import styles from "@/components/styles.module.css";
+
 import {
   Modal,
   ModalContent,
@@ -7,7 +9,7 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-} from '@nextui-org/react';
+} from "@nextui-org/react";
 
 type ModalWindowProps = {
   title: string;
@@ -25,24 +27,25 @@ export default function ModalWindow({
   formHandler,
 }: ModalWindowProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
-    console.log('handleSubmit called');
-    formHandler(); 
+    e.preventDefault();
+    console.log("handleSubmit called");
+    formHandler();
   };
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      placement="top-center"
+      className={styles.create_modal}
+    >
       <ModalContent>
         <form onSubmit={handleSubmit}>
-          <ModalHeader className="modal inset">{title}</ModalHeader>
-          <ModalBody>{children}</ModalBody>
+          <ModalHeader >{title}</ModalHeader>
+          <ModalBody >{children}</ModalBody>
           <ModalFooter>
             <Button
-              color="primary"
-              variant="solid"
-              size="md"
-              radius="sm"
-              type="submit"
+className={styles.btn_chanel}
             >
               Save
             </Button>
