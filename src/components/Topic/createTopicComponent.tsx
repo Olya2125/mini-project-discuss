@@ -5,6 +5,7 @@ import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from
 import ModalWindow from "@/components/modalWindow";
 import { createTopic } from "@/app/actions/topics";
 import OurInput from "@/components/ourInput";
+import styles from "@/components/styles.module.css";
 
 export default function CreateTopicComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,6 +58,7 @@ export default function CreateTopicComponent() {
         size="lg"
         radius="sm"
         type="submit"
+        className={styles.btn_create}
         onClick={openModal}
       >
         New Topic
