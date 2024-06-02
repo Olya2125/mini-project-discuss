@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { deletePost } from '@/app/actions/posts';
+import { useSession } from 'next-auth/react';
 import styles from '@/components/styles.module.css';
 import ConfirmModal from '@/components/ConfirmModal';
 
@@ -14,6 +15,7 @@ interface DeletePostButtonProps {
 export default function DeletePostButton({ postId }: DeletePostButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleDeletePost = async () => {
     try {
@@ -23,6 +25,10 @@ export default function DeletePostButton({ postId }: DeletePostButtonProps) {
       console.error('Error deleting post:', error);
     }
   };
+
+  if (!session?.user) {
+    return null;
+  }
 
   return (
     <>
