@@ -1,44 +1,40 @@
 'use server';
 import { db } from '@/db';
+import { z } from 'zod';
+
+const createPostSchema = z.object({
+  title: z.string().min(3, "Title should be longer than 3 letters "),
+  content: z.string().min(10, "Content should be longer than 10 letters"),
+  userId: z.string().min(1, "User ID is required"),
+  topicId: z.string().min(1, "Topic ID is required"),
+});
 
 export const createPost = async (_prevState: { message: string }, formData: FormData) => {
-    const title = formData.get('title') as string;
-    const content = formData.get('content') as string;
-    const userId = formData.get('userId') as string;
-    const topicId = formData.get('topicId') as string;
+  const title = formData.get('title');
+  const content = formData.get('content');
+  const userId = formData.get('userId');
+  const topicId = formData.get('topicId');
 
-    console.log('createPost called with:', { title, content, userId, topicId }); 
+  try {
+    const parsedData = createPostSchema.parse({ title, content, userId, topicId });
 
-    try {
-      if (!title || title.length < 3) {
-        return { message: 'Title should be longer' };
-      }
+    const createdPost = await db.post.create({
+      data: parsedData,
+    });
 
-      if (!content || content.length < 10) {
-        return { message: 'Content should be longer' };
-      }
+    console.log('Created post:', createdPost);
 
-      const createdPost = await db.post.create({
-        data: {
-          title,
-          content,
-          userId,
-          topicId,
-        },
-      });
-
-      console.log('Created post:', createdPost); 
-
-      return { message: 'Post created successfully' };
-
-    } catch (error: unknown) {
-      console.error('Error creating post:', error); 
-      if (error instanceof Error) {
-        return { message: error.message };
-      } else {
-        return { message: 'Something went wrong' };
-      }
+    return { message: 'Post created successfully' };
+  } catch (error: unknown) {
+    console.error('Error creating post:', error);
+    if (error instanceof z.ZodError) {
+      return { message: error.errors[0].message };
+    } else if (error instanceof Error) {
+      return { message: error.message };
+    } else {
+      return { message: 'Something went wrong' };
     }
+  }
 };
 
 export const deletePost = async (postId: string) => {
@@ -49,5 +45,27 @@ export const deletePost = async (postId: string) => {
   } catch (error) {
     console.error('Error deleting post:', error);
     throw new Error('Failed to delete post');
+  }
+};
+
+export const getPopularPosts = async () => {
+  try {
+    const popularPosts = await db.post.findMany({
+      orderBy: {
+        comments: {
+          _count: 'desc',
+        },
+      },
+      take: 5,
+      include: {
+        user: true,
+        comments: true,
+        topic: true,
+      },
+    });
+    return popularPosts;
+  } catch (error) {
+    console.error('Error fetching popular posts:', error);
+    return [];
   }
 };

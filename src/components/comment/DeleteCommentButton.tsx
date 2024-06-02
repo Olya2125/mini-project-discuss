@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { deleteComment } from '@/app/actions/comments';
+import { useSession } from 'next-auth/react';
 import styles from '@/components/styles.module.css';
 import ConfirmModal from '@/components/ConfirmModal';
 
@@ -14,6 +15,7 @@ interface DeleteCommentButtonProps {
 export default function DeleteCommentButton({ commentId }: DeleteCommentButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleDeleteComment = async () => {
     try {
@@ -23,6 +25,10 @@ export default function DeleteCommentButton({ commentId }: DeleteCommentButtonPr
       console.error('Error deleting comment:', error);
     }
   };
+
+  if (!session?.user) {
+    return null;
+  }
 
   return (
     <>
