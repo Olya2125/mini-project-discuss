@@ -46,7 +46,7 @@ margin-top: 20px;
     font-size: 40px;
     color: #021A36;
     font-weight: 700;
-margin-top: -20px;
+margin-top: 40px;
   }
 
   .postcard{
@@ -128,6 +128,21 @@ height: 30px;
 
 }
 .btn_del:hover{
+
+  color: #fff;
+  background-color: #030b15;
+}
+.btn_del_comment{
+  margin-top: 10px;
+  background-color: #b2b2b4;
+  color: #030a13;
+  border: none;
+font-weight: 500;
+margin-left: 10px;
+width: 150px;
+height: 30px;
+}
+.btn_del_comment:hover{
 
   color: #fff;
   background-color: #030b15;
