@@ -1,30 +1,28 @@
-'use server';
-
 import React from 'react';
 import { db } from '@/db';
 import { notFound } from 'next/navigation';
 import { SessionProvider } from 'next-auth/react';
 import CreateCommentComponent from '@/components/comment/CreateCommentComponent';
-import CommentTree from '@/components/comment/CommentTree'; // Импортируем новый компонент
+import CommentTree from '@/components/comment/CommentTree';
 import styles from '@/components/styles.module.css';
 import BackButton from '@/components/backButton/page';
 
-
 export default async function ViewPost(props: any) {
   const { id, slug } = props.params;
+  const decodedSlug = decodeURIComponent(slug);
   const post = await db.post.findUnique({
     where: { id },
     include: {
       user: true,
       topic: true,
       comments: {
-        where: { parentId: null }, // Только верхние уровни комментариев
+        where: { parentId: null },
         include: {
           user: true,
-          children: { // Включение вложенных комментариев
+          children: {
             include: {
               user: true,
-              children: { // Рекурсивное включение для всех уровней вложенности
+              children: {
                 include: {
                   user: true,
                 },
@@ -41,12 +39,10 @@ export default async function ViewPost(props: any) {
   }
 
   return (
-
     <SessionProvider>
-<BackButton/>
-
+      <BackButton />
       <div>
-        <div className="flex flex-col items-center p-10">
+        <div className="flex flex-col items-center p-10 ">
           <h3 className={styles.alltitle}>{post.title}</h3>
           <p className={styles.application}>{post.content}</p>
           <CreateCommentComponent postId={post.id} />

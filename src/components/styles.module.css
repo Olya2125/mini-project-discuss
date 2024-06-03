@@ -46,7 +46,7 @@ margin-top: 20px;
     font-size: 40px;
     color: #021A36;
     font-weight: 700;
-    margin-top: 60px;
+margin-top: 40px;
   }
 
   .postcard{
@@ -118,11 +118,55 @@ font-weight: 600;
 }
 .btn_del{
   margin-top: 10px;
-margin-left: 10px;
-color: #021A36;
-font-weight: 700;
-margin-left: 30px;
+  background-color: #b2b2b4;
+  color: #030a13;
+  border: none;
+font-weight: 500;
+
+width: 150px;
+height: 30px;
+
 }
+.btn_del:hover{
+
+  color: #fff;
+  background-color: #030b15;
+}
+
+.btn_del_comment{
+  margin-top: 10px;
+  background-color: #b2b2b4;
+  color: #030a13;
+  border: none;
+font-weight: 500;
+margin-left: 10px;
+width: 150px;
+height: 30px;
+}
+
+.btn_del_comment:hover{
+
+  color: #fff;
+  background-color: #030b15;
+}
+.btn_delete{
+  margin-top: 10px;
+  background-color: #b2b2b4;
+  color: #030a13;
+  border: none;
+font-weight: 500;
+width: 150px;
+height: 30px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.btn_delete:hover{
+  
+  color: #fff;
+  background-color: #030b15;
+}
+
 .btn_create:hover{
   background-color: #010e1d;
 }
@@ -342,3 +386,29 @@ margin-top: 10px;
   .btnback:hover{
     color: #0862c9;
   } 
+
+  .modal{
+    width: 400px;
+    height: 200px;
+    background-color: #fff;
+    
+  }
+
+  .btn_chanel{
+    background-color: #021831;
+    color: #fff;
+  }
+
+  .btndelete{
+    color: rgb(167, 10, 10);
+    font-weight: 700;
+    background-color: transparent;
+  }
+
+  .create_modal{
+    border: 2px #2c3d4f solid;
+  }
+
+  .title_create{
+
+  }

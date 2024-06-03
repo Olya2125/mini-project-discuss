@@ -5,6 +5,7 @@ import Logo from "@/components/logo/page";
 import { Link, Button, Input } from "@nextui-org/react";
 import styles from "@/components/styles.module.css";
 
+
 export default async function () {
   const session = await auth();
 
@@ -20,7 +21,8 @@ export default async function () {
             </li>
             <li className={styles.li}>
               <Link href="">
-                <Input
+
+                 <Input
                   classNames={{
                     base: "max-w-full sm:max-w-[10rem] h-10",
                     mainWrapper: "h-full",
@@ -31,7 +33,7 @@ export default async function () {
                   placeholder="Type to search..."
                   size="sm"
                   type="search"
-                />
+                /> 
               </Link>
             </li>
             <div className="btn_block">

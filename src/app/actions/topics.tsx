@@ -1,50 +1,43 @@
 'use server';
 import { db } from '@/db';
 import { redirect } from 'next/navigation';
+import { z } from 'zod';
+
+const createTopicSchema = z.object({
+  slug: z.string().min(1, "Name must be longer than 1 letters"),
+  description: z.string().min(10, "Description should be longer than 10 letters"),
+});
 
 export const createTopic = async (_prevState: { message: string }, formData: FormData) => {
-  const slug = formData.get('slug') as string;
-  const description = formData.get('description') as string;
+  const slug = formData.get('slug');
+  const description = formData.get('description');
 
   try {
-    if (!slug || slug.length < 3) {
-      return { message: 'Name should be longer' };
-    }
+    const parsedData = createTopicSchema.parse({ slug, description });
 
-    if (!description || description.length < 2) {
-      return { message: 'Description should be longer' };
-    }
-
-    const existingTopic = await db.topic.findUnique({ where: { slug } });
+    const existingTopic = await db.topic.findUnique({ where: { slug: parsedData.slug } });
     if (existingTopic) {
       return { message: 'Slug already exists. Please choose a different slug.' };
     }
 
-    if (!/^[a-zA-Z0-9-]+$/.test(slug)) {
-      return { message: 'Temporary condition. Slug should only contain letters, numbers, and hyphens (-).' };
-    }
-
     const createdTopic = await db.topic.create({
-      data: {
-        slug,
-        description,
-      },
+      data: parsedData,
     });
 
-    console.log('Created topic:', createdTopic); 
+    console.log('Created topic:', createdTopic);
 
     return { message: 'Topic created successfully' };
-    
   } catch (error: unknown) {
-    console.error('Error creating topic:', error); 
-    if (error instanceof Error) {
+    console.error('Error creating topic:', error);
+    if (error instanceof z.ZodError) {
+      return { message: error.errors[0].message };
+    } else if (error instanceof Error) {
       return { message: error.message };
     } else {
       return { message: 'Something went wrong' };
     }
   }
 };
-
 
 export const getAllTopics = async () => {
   try {
@@ -58,10 +51,11 @@ export const getAllTopics = async () => {
 
 export const deleteTopic = async (slug: string) => {
   try {
-    // Удаление топика и постов, комментариев связанных
+    const decodedSlug = decodeURIComponent(slug);
+
     await db.$transaction(async (prisma) => {
       const topic = await prisma.topic.findUnique({
-        where: { slug },
+        where: { slug: decodedSlug },
         include: {
           posts: {
             include: {
@@ -89,7 +83,6 @@ export const deleteTopic = async (slug: string) => {
         where: { id: topic.id },
       });
     });
-
   } catch (error) {
     console.error('Error deleting topic:', error);
     throw new Error('Failed to delete topic');

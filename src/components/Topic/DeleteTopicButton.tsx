@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { deleteTopic } from '@/app/actions/topics';
+import { useSession } from 'next-auth/react';
 import styles from '@/components/styles.module.css';
 import ConfirmModal from '@/components/ConfirmModal';
 
@@ -14,6 +15,7 @@ interface DeleteTopicButtonProps {
 export default function DeleteTopicButton({ slug }: DeleteTopicButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleDeleteTopic = async () => {
     try {
@@ -24,17 +26,19 @@ export default function DeleteTopicButton({ slug }: DeleteTopicButtonProps) {
     }
   };
 
+  if (!session?.user) {
+    return null; // Hide the button if the user is not authenticated
+  }
+
   return (
     <>
       <Button
-        className={styles.btn_del}
-        color="primary"
-        size="sm"
+        className={styles.btn_delete}
+        size="lg"
         radius="sm"
-        variant="ghost"
         onClick={() => setIsModalOpen(true)}
       >
-        Delete this topic
+        Delete 
       </Button>
       <ConfirmModal
         title="Delete Topic"
