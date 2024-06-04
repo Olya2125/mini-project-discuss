@@ -1,7 +1,7 @@
 'use server';
 
 import { createTopicInDB, getAllTopicsFromDB, deleteTopicFromDB } from '@/db/topics';
-import { z } from 'zod';
+import { handleError } from '@/utils/errorHandler';
 
 export const createTopic = async (_prevState: { message: string }, formData: FormData) => {
   const slug = formData.get('slug') as string;
@@ -10,14 +10,8 @@ export const createTopic = async (_prevState: { message: string }, formData: For
   try {
     const result = await createTopicInDB(slug, description);
     return { message: result.message };
-  } catch (error: unknown) {
-    if (error instanceof z.ZodError) {
-      return { message: error.errors[0].message };
-    } else if (error instanceof Error) {
-      return { message: error.message };
-    } else {
-      return { message: 'Something went wrong' };
-    }
+  } catch (error) {
+    return handleError(error);
   }
 };
 
@@ -26,5 +20,10 @@ export const getAllTopics = async () => {
 };
 
 export const deleteTopic = async (slug: string) => {
-  return await deleteTopicFromDB(slug);
+  try {
+    await deleteTopicFromDB(slug);
+    return { message: 'Topic deleted successfully' };
+  } catch (error) {
+    return handleError(error);
+  }
 };

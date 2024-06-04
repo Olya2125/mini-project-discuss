@@ -3,21 +3,17 @@ import { z } from 'zod';
 import { handleError } from '@/utils/errorHandler';
 
 const createPostSchema = z.object({
-  title: z.string().min(3, "Title should be longer than 3 letters "),
+  title: z.string().min(3, "Title should be longer than 3 letters"),
   content: z.string().min(10, "Content should be longer than 10 letters"),
   userId: z.string().min(1, "User ID is required"),
   topicId: z.string().min(1, "Topic ID is required"),
 });
 
-type CreatePostResult = 
-  | { message: string }
-  | { message: string; createdPost: { id: string; title: string; content: string; userId: string; topicId: string; createdAt: Date; updatedAt: Date; } };
-
-export const createPostInDB = async (formData: FormData): Promise<CreatePostResult> => {
-  const title = formData.get('title');
-  const content = formData.get('content');
-  const userId = formData.get('userId');
-  const topicId = formData.get('topicId');
+export const createPostInDB = async (formData: FormData) => {
+  const title = formData.get('title') as string;
+  const content = formData.get('content') as string;
+  const userId = formData.get('userId') as string;
+  const topicId = formData.get('topicId') as string;
 
   try {
     const parsedData = createPostSchema.parse({ title, content, userId, topicId });
@@ -27,7 +23,7 @@ export const createPostInDB = async (formData: FormData): Promise<CreatePostResu
     });
 
     return { message: 'Post created successfully', createdPost };
-  } catch (error: unknown) {
+  } catch (error) {
     return handleError(error);
   }
 };
@@ -37,14 +33,14 @@ export const deletePostFromDB = async (postId: string) => {
     await db.post.delete({
       where: { id: postId },
     });
-  } catch (error: unknown) {
-    throw new Error('Failed to delete post');
+  } catch (error) {
+    return handleError(error);
   }
 };
 
 export const getPopularPostsFromDB = async () => {
   try {
-    const popularPosts = await db.post.findMany({
+    return await db.post.findMany({
       orderBy: {
         comments: {
           _count: 'desc',
@@ -57,8 +53,7 @@ export const getPopularPostsFromDB = async () => {
         topic: true,
       },
     });
-    return popularPosts;
-  } catch (error: unknown) {
+  } catch (error) {
     return handleError(error);
   }
 };

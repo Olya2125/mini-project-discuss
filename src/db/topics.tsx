@@ -7,11 +7,7 @@ const createTopicSchema = z.object({
   description: z.string().min(10, "Description should be longer than 10 letters"),
 });
 
-type CreateTopicResult = 
-  | { message: string }
-  | { message: string; createdTopic: { id: string; slug: string; description: string; createdAt: Date; updatedAt: Date; } };
-
-export const createTopicInDB = async (slug: string, description: string): Promise<CreateTopicResult> => {
+export const createTopicInDB = async (slug: string, description: string) => {
   try {
     const parsedData = createTopicSchema.parse({ slug, description });
 
@@ -25,16 +21,15 @@ export const createTopicInDB = async (slug: string, description: string): Promis
     });
 
     return { message: 'Topic created successfully', createdTopic };
-  } catch (error: unknown) {
+  } catch (error) {
     return handleError(error);
   }
 };
 
 export const getAllTopicsFromDB = async () => {
   try {
-    const topics = await db.topic.findMany();
-    return topics;
-  } catch (error: unknown) {
+    return await db.topic.findMany();
+  } catch (error) {
     return handleError(error);
   }
 };
@@ -73,7 +68,9 @@ export const deleteTopicFromDB = async (slug: string) => {
         where: { id: topic.id },
       });
     });
-  } catch (error: unknown) {
+
+    return { message: 'Topic deleted successfully' };
+  } catch (error) {
     return handleError(error);
   }
 };

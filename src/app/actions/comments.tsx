@@ -1,6 +1,7 @@
 'use server';
 
 import { createCommentInDB, deleteCommentFromDB } from '@/db/comments';
+import { handleError } from '@/utils/errorHandler';
 
 export const createComment = async (_prevState: { message: string }, formData: FormData) => {
   try {
@@ -10,7 +11,7 @@ export const createComment = async (_prevState: { message: string }, formData: F
     }
     return { message: result.message };
   } catch (error) {
-    return { message: 'Something went wrong' };
+    return handleError(error);
   }
 };
 

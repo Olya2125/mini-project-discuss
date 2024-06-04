@@ -9,15 +9,11 @@ const createCommentSchema = z.object({
   parentId: z.string().nullable(),
 });
 
-type CreateCommentResult = 
-  | { message: string }
-  | { message: string; createdComment: { id: string; content: string; postId: string; userId: string; parentId: string | null; createdAt: Date; updatedAt: Date; } };
-
-export const createCommentInDB = async (formData: FormData): Promise<CreateCommentResult> => {
-  const content = formData.get('content');
-  const userId = formData.get('userId');
-  const postId = formData.get('postId');
-  const parentId = formData.get('parentId');
+export const createCommentInDB = async (formData: FormData) => {
+  const content = formData.get('content') as string;
+  const userId = formData.get('userId') as string;
+  const postId = formData.get('postId') as string;
+  const parentId = formData.get('parentId') as string | null;
 
   try {
     const parsedData = createCommentSchema.parse({ content, userId, postId, parentId });
@@ -27,7 +23,7 @@ export const createCommentInDB = async (formData: FormData): Promise<CreateComme
     });
 
     return { message: 'Comment created successfully', createdComment };
-  } catch (error: unknown) {
+  } catch (error) {
     return handleError(error);
   }
 };
@@ -37,7 +33,7 @@ export const deleteCommentFromDB = async (commentId: string) => {
     await db.comment.delete({
       where: { id: commentId },
     });
-  } catch (error: unknown) {
+  } catch (error) {
     throw new Error('Failed to delete comment');
   }
 };
