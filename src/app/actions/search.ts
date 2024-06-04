@@ -4,11 +4,11 @@ import { redirect } from "next/navigation";
 
 
 export  async function search(formData: FormData) {
-    const id = formData.get('id');
+    const term = formData.get('term') as string;
 
-    if (typeof id !== 'string' || !id){
+    if (typeof term !== 'string' || !term){
         redirect('/');
     }
 
-    redirect(`/search?term=${id}`);
+    redirect(`/search?term=${term}`);
 }
