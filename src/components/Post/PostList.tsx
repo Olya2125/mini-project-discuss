@@ -1,5 +1,5 @@
 import React from 'react';
-import PostCard from '@/components/Post/PostCard/page';
+import PostCard from '@/components/Post/PostCard';
 import styles from '@/components/styles.module.css';
 
 interface Post {

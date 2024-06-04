@@ -2,7 +2,7 @@
 
 import React from 'react';
 import CreateTopicComponent from '@/components/Topic/createTopicComponent';
-import TopicList from '@/components/Topic/listTopic/page';
+import TopicList from '@/components/Topic/listTopic';
 import styles from '@/components/styles.module.css';
 import PopularPosts from '@/components/Post/PopularPosts';
 import { SessionProvider } from 'next-auth/react';
