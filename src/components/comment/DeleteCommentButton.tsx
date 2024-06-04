@@ -34,7 +34,6 @@ export default function DeleteCommentButton({ commentId }: DeleteCommentButtonPr
     <>
       <Button
         className={styles.btn_del_comment}
-
         onClick={() => setIsModalOpen(true)}
       >
         Delete

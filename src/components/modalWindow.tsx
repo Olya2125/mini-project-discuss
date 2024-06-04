@@ -45,6 +45,7 @@ export default function ModalWindow({
           <ModalBody >{children}</ModalBody>
           <ModalFooter>
             <Button
+                    type="submit"
 className={styles.btn_chanel}
 type="submit"
             >
