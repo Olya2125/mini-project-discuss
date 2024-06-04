@@ -407,7 +407,20 @@ margin-top: 10px;
   .create_modal{
     border: 2px #2c3d4f solid;
   }
-
-  .title_create{
-
+  .search_result{
+    font-weight: 600;
+    margin-bottom: 10px;
+margin-left: 16px;
+color: #021A36;
+    font-size: 18px;
+  }
+  .search_results{
+    margin-top: 80px;
+  }
+  .search_result_no{
+    font-weight: 400;
+    margin-bottom: 10px;
+margin-left: 16px;
+color: #e0261c;
+    font-size: 18px;
   }
