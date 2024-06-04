@@ -5,7 +5,9 @@ import { createCommentInDB, deleteCommentFromDB } from '@/db/comments';
 export const createComment = async (_prevState: { message: string }, formData: FormData) => {
   try {
     const result = await createCommentInDB(formData);
-    console.log('Created comment:', result.createdComment);
+    if ('createdComment' in result) {
+      console.log('Created comment:', result.createdComment);
+    }
     return { message: result.message };
   } catch (error) {
     return { message: 'Something went wrong' };

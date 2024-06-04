@@ -7,7 +7,11 @@ const createTopicSchema = z.object({
   description: z.string().min(10, "Description should be longer than 10 letters"),
 });
 
-export const createTopicInDB = async (slug: string, description: string) => {
+type CreateTopicResult = 
+  | { message: string }
+  | { message: string; createdTopic: { id: string; slug: string; description: string; createdAt: Date; updatedAt: Date; } };
+
+export const createTopicInDB = async (slug: string, description: string): Promise<CreateTopicResult> => {
   try {
     const parsedData = createTopicSchema.parse({ slug, description });
 

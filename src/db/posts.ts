@@ -9,7 +9,11 @@ const createPostSchema = z.object({
   topicId: z.string().min(1, "Topic ID is required"),
 });
 
-export const createPostInDB = async (formData: FormData) => {
+type CreatePostResult = 
+  | { message: string }
+  | { message: string; createdPost: { id: string; title: string; content: string; userId: string; topicId: string; createdAt: Date; updatedAt: Date; } };
+
+export const createPostInDB = async (formData: FormData): Promise<CreatePostResult> => {
   const title = formData.get('title');
   const content = formData.get('content');
   const userId = formData.get('userId');
@@ -34,7 +38,7 @@ export const deletePostFromDB = async (postId: string) => {
       where: { id: postId },
     });
   } catch (error: unknown) {
-    return handleError(error);
+    throw new Error('Failed to delete post');
   }
 };
 

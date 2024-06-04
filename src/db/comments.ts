@@ -9,7 +9,11 @@ const createCommentSchema = z.object({
   parentId: z.string().nullable(),
 });
 
-export const createCommentInDB = async (formData: FormData) => {
+type CreateCommentResult = 
+  | { message: string }
+  | { message: string; createdComment: { id: string; content: string; postId: string; userId: string; parentId: string | null; createdAt: Date; updatedAt: Date; } };
+
+export const createCommentInDB = async (formData: FormData): Promise<CreateCommentResult> => {
   const content = formData.get('content');
   const userId = formData.get('userId');
   const postId = formData.get('postId');
@@ -34,6 +38,6 @@ export const deleteCommentFromDB = async (commentId: string) => {
       where: { id: commentId },
     });
   } catch (error: unknown) {
-    return handleError(error);
+    throw new Error('Failed to delete comment');
   }
 };
