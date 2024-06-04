@@ -1,5 +1,6 @@
 import { db } from '@/db';
 import { z } from 'zod';
+import { handleError } from '@/utils/errorHandler';
 
 const createCommentSchema = z.object({
   content: z.string().min(10, "Comment should be longer than 10 letters"),
@@ -23,13 +24,7 @@ export const createCommentInDB = async (formData: FormData) => {
 
     return { message: 'Comment created successfully', createdComment };
   } catch (error: unknown) {
-    if (error instanceof z.ZodError) {
-      return { message: error.errors[0].message };
-    } else if (error instanceof Error) {
-      return { message: error.message };
-    } else {
-      return { message: 'Something went wrong' };
-    }
+    return handleError(error);
   }
 };
 
@@ -38,7 +33,7 @@ export const deleteCommentFromDB = async (commentId: string) => {
     await db.comment.delete({
       where: { id: commentId },
     });
-  } catch (error) {
-    throw new Error('Failed to delete comment');
+  } catch (error: unknown) {
+    return handleError(error);
   }
 };

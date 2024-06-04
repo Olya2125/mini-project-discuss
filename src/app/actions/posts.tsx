@@ -8,7 +8,6 @@ export const createPost = async (_prevState: { message: string }, formData: Form
     console.log('Created post:', result.createdPost);
     return { message: result.message };
   } catch (error) {
-    console.error('Error creating post:', error);
     return { message: 'Something went wrong' };
   }
 };
@@ -17,7 +16,6 @@ export const deletePost = async (postId: string) => {
   try {
     await deletePostFromDB(postId);
   } catch (error) {
-    console.error('Error deleting post:', error);
     throw new Error('Failed to delete post');
   }
 };
@@ -27,7 +25,6 @@ export const getPopularPosts = async () => {
     const popularPosts = await getPopularPostsFromDB();
     return popularPosts;
   } catch (error) {
-    console.error('Error fetching popular posts:', error);
     return [];
   }
 };

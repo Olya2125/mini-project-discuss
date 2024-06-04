@@ -1,4 +1,5 @@
 'use server';
+
 import { createTopicInDB, getAllTopicsFromDB, deleteTopicFromDB } from '@/db/topics';
 import { z } from 'zod';
 
@@ -10,7 +11,6 @@ export const createTopic = async (_prevState: { message: string }, formData: For
     const result = await createTopicInDB(slug, description);
     return { message: result.message };
   } catch (error: unknown) {
-    console.error('Error creating topic:', error);
     if (error instanceof z.ZodError) {
       return { message: error.errors[0].message };
     } else if (error instanceof Error) {

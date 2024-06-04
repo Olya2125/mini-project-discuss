@@ -1,35 +1,37 @@
 import { db } from '@/db';
 import { z } from 'zod';
+import { handleError } from '@/utils/errorHandler';
 
 const createTopicSchema = z.object({
-  slug: z.string().min(1, "Name must be longer than 1 letters"),
+  slug: z.string().min(1, "Name must be longer than 1 letter"),
   description: z.string().min(10, "Description should be longer than 10 letters"),
 });
 
 export const createTopicInDB = async (slug: string, description: string) => {
-  const parsedData = createTopicSchema.parse({ slug, description });
+  try {
+    const parsedData = createTopicSchema.parse({ slug, description });
 
-  const existingTopic = await db.topic.findUnique({ where: { slug: parsedData.slug } });
-  if (existingTopic) {
-    return { message: 'Slug already exists. Please choose a different slug.' };
+    const existingTopic = await db.topic.findUnique({ where: { slug: parsedData.slug } });
+    if (existingTopic) {
+      return { message: 'Slug already exists. Please choose a different slug.' };
+    }
+
+    const createdTopic = await db.topic.create({
+      data: parsedData,
+    });
+
+    return { message: 'Topic created successfully', createdTopic };
+  } catch (error: unknown) {
+    return handleError(error);
   }
-
-  const createdTopic = await db.topic.create({
-    data: parsedData,
-  });
-
-  console.log('Created topic:', createdTopic);
-
-  return { message: 'Topic created successfully' };
 };
 
 export const getAllTopicsFromDB = async () => {
   try {
     const topics = await db.topic.findMany();
     return topics;
-  } catch (error) {
-    console.error('Error fetching topics:', error);
-    return [];
+  } catch (error: unknown) {
+    return handleError(error);
   }
 };
 
@@ -67,8 +69,7 @@ export const deleteTopicFromDB = async (slug: string) => {
         where: { id: topic.id },
       });
     });
-  } catch (error) {
-    console.error('Error deleting topic:', error);
-    throw new Error('Failed to delete topic');
+  } catch (error: unknown) {
+    return handleError(error);
   }
 };

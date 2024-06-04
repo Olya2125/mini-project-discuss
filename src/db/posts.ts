@@ -1,5 +1,6 @@
 import { db } from '@/db';
 import { z } from 'zod';
+import { handleError } from '@/utils/errorHandler';
 
 const createPostSchema = z.object({
   title: z.string().min(3, "Title should be longer than 3 letters "),
@@ -23,13 +24,7 @@ export const createPostInDB = async (formData: FormData) => {
 
     return { message: 'Post created successfully', createdPost };
   } catch (error: unknown) {
-    if (error instanceof z.ZodError) {
-      return { message: error.errors[0].message };
-    } else if (error instanceof Error) {
-      return { message: error.message };
-    } else {
-      return { message: 'Something went wrong' };
-    }
+    return handleError(error);
   }
 };
 
@@ -38,8 +33,8 @@ export const deletePostFromDB = async (postId: string) => {
     await db.post.delete({
       where: { id: postId },
     });
-  } catch (error) {
-    throw new Error('Failed to delete post');
+  } catch (error: unknown) {
+    return handleError(error);
   }
 };
 
@@ -59,8 +54,7 @@ export const getPopularPostsFromDB = async () => {
       },
     });
     return popularPosts;
-  } catch (error) {
-    console.error('Error fetching popular posts:', error);
-    return [];
+  } catch (error: unknown) {
+    return handleError(error);
   }
 };
