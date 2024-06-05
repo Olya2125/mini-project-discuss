@@ -14,8 +14,17 @@ interface DeleteTopicButtonProps {
 
 export default function DeleteTopicButton({ slug }: DeleteTopicButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { data: session } = useSession();
+
+  const handleDeleteClick = () => {
+    if (!session?.user) {
+      setError('You must be logged in to delete topics');
+    } else {
+      setIsModalOpen(true);
+    }
+  };
 
   const handleDeleteTopic = async () => {
     try {
@@ -26,26 +35,25 @@ export default function DeleteTopicButton({ slug }: DeleteTopicButtonProps) {
     }
   };
 
-  if (!session?.user) {
-    return null; // Hide the button if the user is not authenticated
-  }
-
   return (
     <>
       <Button
         className={styles.btn_delete}
         size="lg"
         radius="sm"
-        onClick={() => setIsModalOpen(true)}
+        onClick={handleDeleteClick}
       >
         Delete 
       </Button>
-      <ConfirmModal
-        title="Delete Topic"
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={handleDeleteTopic}
-      />
+      {error && <p className={styles.error_message}>{error}</p>}
+      {session?.user && (
+        <ConfirmModal
+          title="Delete Topic"
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={handleDeleteTopic}
+        />
+      )}
     </>
   );
 }

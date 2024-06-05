@@ -16,7 +16,7 @@ type ModalWindowProps = {
   children: ReactNode;
   isOpen: boolean;
   onOpenChange: () => void;
-  formHandler: () => void;
+  formHandler: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
 export default function ModalWindow({
@@ -28,8 +28,7 @@ export default function ModalWindow({
 }: ModalWindowProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("handleSubmit called");
-    formHandler();
+    formHandler(e);
   };
 
   return (
@@ -41,13 +40,10 @@ export default function ModalWindow({
     >
       <ModalContent>
         <form onSubmit={handleSubmit}>
-          <ModalHeader >{title}</ModalHeader>
-          <ModalBody >{children}</ModalBody>
+          <ModalHeader>{title}</ModalHeader>
+          <ModalBody>{children}</ModalBody>
           <ModalFooter>
-            <Button
-                    type="submit"
-className={styles.btn_chanel}
-            >
+            <Button type="submit" className={styles.btn_chanel}>
               Save
             </Button>
           </ModalFooter>

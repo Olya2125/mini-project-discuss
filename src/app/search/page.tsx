@@ -1,10 +1,10 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import PostCard from '@/components/Post/PostCard/page';
+import PostCard from '@/components/Post/PostCard';
 import styles from '@/components/styles.module.css';
 import { searchPosts } from '@/db/search';
 import CreateTopicComponent from '@/components/Topic/createTopicComponent';
-import TopicList from '@/components/Topic/listTopic/page';
+import TopicList from '@/components/Topic/listTopic';
 
 interface SearchPageProps {
   searchParams: {

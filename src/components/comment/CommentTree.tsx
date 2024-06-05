@@ -20,7 +20,7 @@ export default function CommentTree({ comment, postId }: CommentTreeProps) {
         <Avatar />
         <div className={styles.comment_one_info}>
           <h3>{comment.user.name}</h3>
-          <p>{comment.content}</p>
+          <p style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{comment.content}</p>
           <button
             className={styles.reply}
             onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
