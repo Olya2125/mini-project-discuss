@@ -6,6 +6,7 @@ import TopicListView from '@/components/Topic/listTopicView';
 import styles from '@/components/styles.module.css';
 import TopicSlugListView from '@/components/Topic/ListSlugTopicView';
 import CreatePostComponent from '@/components/Post/CreatePostComponent';
+import CreateTopicComponent from '@/components/Topic/createTopicComponent'; // Импортируем компонент редактирования топика
 import { SessionProvider } from 'next-auth/react';
 import BackButton from '@/components/backButton/page';
 import DeleteTopicButton from '@/components/Topic/DeleteTopicButton';
@@ -46,7 +47,10 @@ export default async function ViewTopic(props: any) {
           <div className={styles.t}>
             <CreatePostComponent topicId={topic.id} />
             <TopicListView topic={topic} />
-            <DeleteTopicButton slug={slug} />
+            <div className={styles.button_group_vertical}>
+              <CreateTopicComponent topicId={topic.id} initialSlug={topic.slug} initialDescription={topic.description} />
+              <DeleteTopicButton slug={slug} />
+            </div>
           </div>
         </div>
       </div>
