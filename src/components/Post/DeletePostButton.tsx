@@ -14,8 +14,17 @@ interface DeletePostButtonProps {
 
 export default function DeletePostButton({ postId }: DeletePostButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { data: session } = useSession();
+
+  const handleDeleteClick = () => {
+    if (!session?.user) {
+      setError('You must be logged in to delete posts');
+    } else {
+      setIsModalOpen(true);
+    }
+  };
 
   const handleDeletePost = async () => {
     try {
@@ -26,26 +35,25 @@ export default function DeletePostButton({ postId }: DeletePostButtonProps) {
     }
   };
 
-  if (!session?.user) {
-    return null;
-  }
-
   return (
     <>
       <Button
         className={styles.btn_del}
         size="lg"
         radius="sm"
-        onClick={() => setIsModalOpen(true)}
+        onClick={handleDeleteClick}
       >
         Delete
       </Button>
-      <ConfirmModal
-        title="Delete Post"
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={handleDeletePost}
-      />
+      {error && <p className={styles.error_message}>{error}</p>}
+      {session?.user && (
+        <ConfirmModal
+          title="Delete Post"
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={handleDeletePost}
+        />
+      )}
     </>
   );
 }

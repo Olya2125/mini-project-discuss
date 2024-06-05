@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import ModalWindow from "@/components/modalWindow";
 import { createTopic, updateTopic } from "@/app/actions/topics";
+import { useSession } from "next-auth/react";
 import OurInput from "@/components/ourInput";
 import styles from "@/components/styles.module.css";
 
@@ -19,6 +20,8 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
   const [description, setDescription] = useState(initialDescription);
   const [errors, setErrors] = useState<{ slug?: string; description?: string }>({});
   const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const { data: session } = useSession();
 
   useEffect(() => {
     setSlug(initialSlug);
@@ -26,7 +29,12 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
   }, [initialSlug, initialDescription]);
 
   const openModal = () => {
-    setIsModalOpen(true);
+    if (!session?.user) {
+      setError('You must be logged in to edit topics');
+    } else {
+      setIsModalOpen(true);
+      setError(null);
+    }
   };
 
   const closeModal = () => {
@@ -45,7 +53,7 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
 
     try {
       const formData = new FormData();
-      formData.append("slug", slug);
+      formData.append("slug", slug); // всегда добавляем slug
       formData.append("description", description);
       let result;
 
@@ -72,17 +80,18 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
 
   return (
     <div>
-      <Button 
+      <Button
         color="primary"
         variant="solid"
         size="lg"
         radius="sm"
         type="submit"
         onClick={openModal}
-        className={styles.btn_action}
+        className={topicId ? styles.btn_action : styles.btn_create} // Используем разные стили для Edit и New Topic
       >
         {topicId ? 'Edit Topic' : 'New Topic'}
       </Button>
+      {error && <p className={styles.error_message}>{error}</p>}
       <ModalWindow
         title={topicId ? 'Edit Topic' : 'Create a Topic'}
         isOpen={isModalOpen}
@@ -96,6 +105,7 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
           value={slug}
           onChange={(e) => setSlug(e.target.value)}
           errorMessage={errors.slug}
+          readOnly={!!topicId}
         />
         <OurInput
           id="description"
