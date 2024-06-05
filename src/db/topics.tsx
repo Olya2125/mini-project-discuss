@@ -7,7 +7,16 @@ const createTopicSchema = z.object({
   description: z.string().min(10, "Description should be longer than 10 letters"),
 });
 
-export const createTopicInDB = async (slug: string, description: string) => {
+const updateTopicSchema = z.object({
+  topicId: z.string().min(1, "Topic ID is required"),
+  slug: z.string().min(1, "Name must be longer than 1 letter"),
+  description: z.string().min(10, "Description should be longer than 10 letters"),
+});
+
+export const createTopicInDB = async (slug: string, description: string): Promise<
+  | { message: string; createdTopic?: undefined; errors?: Record<string, string> }
+  | { message: string; createdTopic: { id: string; slug: string; description: string; createdAt: Date; updatedAt: Date }; errors?: undefined }
+> => {
   try {
     const parsedData = createTopicSchema.parse({ slug, description });
 
@@ -22,9 +31,56 @@ export const createTopicInDB = async (slug: string, description: string) => {
 
     return { message: 'Topic created successfully', createdTopic };
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return {
+        message: 'Validation failed',
+        errors: error.errors.reduce((acc, curr) => {
+          if (curr.path.length > 0) {
+            const key = curr.path[0] as string;
+            acc[key] = curr.message;
+          }
+          return acc;
+        }, {} as Record<string, string>),
+      };
+    }
     return handleError(error);
   }
 };
+
+export const updateTopicInDB = async (formData: FormData): Promise<
+  | { message: string; updatedTopic?: undefined; errors?: Record<string, string> }
+  | { message: string; updatedTopic: { id: string; slug: string; description: string; createdAt: Date; updatedAt: Date }; errors?: undefined }
+> => {
+  const topicId = formData.get('topicId') as string;
+  const slug = formData.get('slug') as string;
+  const description = formData.get('description') as string;
+
+  try {
+    const parsedData = updateTopicSchema.parse({ topicId, slug, description });
+
+    const updatedTopic = await db.topic.update({
+      where: { id: topicId },
+      data: { slug: parsedData.slug, description: parsedData.description },
+    });
+
+    return { message: 'Topic updated successfully', updatedTopic };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return {
+        message: 'Validation failed',
+        errors: error.errors.reduce((acc, curr) => {
+          if (curr.path.length > 0) {
+            const key = curr.path[0] as string;
+            acc[key] = curr.message;
+          }
+          return acc;
+        }, {} as Record<string, string>),
+      };
+    }
+    return handleError(error);
+  }
+};
+
 
 export const getAllTopicsFromDB = async () => {
   try {

@@ -14,8 +14,18 @@ interface DeleteCommentButtonProps {
 
 export default function DeleteCommentButton({ commentId }: DeleteCommentButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { data: session } = useSession();
+
+  const handleDeleteClick = () => {
+    if (!session?.user) {
+      setError('You must be logged in to delete comments');
+    } else {
+      setIsModalOpen(true);
+      setError(null);
+    }
+  };
 
   const handleDeleteComment = async () => {
     try {
@@ -26,24 +36,23 @@ export default function DeleteCommentButton({ commentId }: DeleteCommentButtonPr
     }
   };
 
-  if (!session?.user) {
-    return null;
-  }
-
   return (
-    <>
+    <div>
       <Button
         className={styles.btn_del_comment}
-        onClick={() => setIsModalOpen(true)}
+        onClick={handleDeleteClick}
       >
         Delete
       </Button>
-      <ConfirmModal
-        title="Delete Comment"
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={handleDeleteComment}
-      />
-    </>
+      {error && <p className={styles.error_message} style={{ marginTop: '8px', color: 'red' }}>{error}</p>}
+      {session?.user && (
+        <ConfirmModal
+          title="Delete Comment"
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={handleDeleteComment}
+        />
+      )}
+    </div>
   );
 }

@@ -6,8 +6,8 @@ import { handleError } from '@/utils/errorHandler';
 export const createComment = async (_prevState: { message: string }, formData: FormData) => {
   try {
     const result = await createCommentInDB(formData);
-    if ('createdComment' in result) {
-      console.log('Created comment:', result.createdComment);
+    if (result.errors) {
+      return { message: result.message, errors: result.errors };
     }
     return { message: result.message };
   } catch (error) {

@@ -2,22 +2,27 @@
 
 import React from 'react';
 import { Input, InputProps } from '@nextui-org/react';
+import styles from "@/components/styles.module.css";
 
 interface OurInputProps extends InputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
 }
 
-export default function OurInput({ label, placeholder, value, onChange, ...rest }: OurInputProps) {
+export default function OurInput({ label, placeholder, value, onChange, errorMessage, ...rest }: OurInputProps) {
   return (
-    <Input
-      {...rest}
-      type="text"
-      label={label}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      variant="bordered"
-    />
+    <div>
+      <Input
+        {...rest}
+        type="text"
+        label={label}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        variant="bordered"
+      />
+      {errorMessage && <p className={styles.error_message}>{errorMessage}</p>}
+    </div>
   );
 }
