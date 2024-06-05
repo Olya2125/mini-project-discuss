@@ -426,9 +426,12 @@ color: #e0261c;
   }
 
 
-.error {
-  color: red;
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-}
+  .textarea.error {
+    border-color: red;
+  }
+  
+  .error_message {
+    color: red;
+    font-size: 0.875rem;
+  }
   

@@ -13,6 +13,7 @@ interface CreateCommentComponentProps {
 
 export default function CreateCommentComponent({ postId, parentId = null }: CreateCommentComponentProps) {
   const [content, setContent] = useState('');
+  const [errors, setErrors] = useState<{ content?: string }>({});
   const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
   const { data: session } = useSession();
 
@@ -22,6 +23,7 @@ export default function CreateCommentComponent({ postId, parentId = null }: Crea
   };
 
   const handleCreateComment = async () => {
+    setErrors({});
     if (!session?.user?.id) {
       console.error('User not authenticated');
       setNotification({ type: 'error', message: 'User not authenticated' });
@@ -38,7 +40,11 @@ export default function CreateCommentComponent({ postId, parentId = null }: Crea
       }
 
       const result = await createComment({ message: '' }, formData);
-      console.log(result.message);
+
+      if (result.errors) {
+        setErrors(result.errors);
+        return;
+      }
 
       if (result.message === 'Comment created successfully') {
         setContent(''); 
@@ -59,8 +65,9 @@ export default function CreateCommentComponent({ postId, parentId = null }: Crea
         placeholder="Enter your comment"
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className={styles.textarea}
+        className={`${styles.textarea} ${errors.content ? styles.error : ''}`}
       />
+      {errors.content && <p className={styles.error_message}>{errors.content}</p>}
       <Button
         className={styles.btn_comment}
         color="primary"
