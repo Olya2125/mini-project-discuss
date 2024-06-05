@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button, Textarea, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
+import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
 import { createComment } from '@/app/actions/comments';
 import { useSession } from 'next-auth/react';
 import styles from '@/components/styles.module.css';
@@ -61,7 +61,7 @@ export default function CreateCommentComponent({ postId, parentId = null }: Crea
 
   return (
     <div>
-      <Textarea
+      <textarea
         placeholder="Enter your comment"
         value={content}
         onChange={(e) => setContent(e.target.value)}

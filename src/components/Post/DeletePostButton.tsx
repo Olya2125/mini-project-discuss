@@ -38,14 +38,12 @@ export default function DeletePostButton({ postId, topicSlug }: DeletePostButton
 
   return (
     <>
-      <Button
-        className={styles.btn_delete}
-        size="lg"
-        radius="sm"
+      <button
+        className={styles.btn_delete_main}
         onClick={handleDeleteClick}
       >
         Delete
-      </Button>
+      </button>
       {error && <p className={styles.error_message}>{error}</p>}
       {session?.user && (
         <ConfirmModal
