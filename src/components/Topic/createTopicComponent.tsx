@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
+import { Button, Textarea, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import ModalWindow from "@/components/modalWindow";
 import { createTopic, updateTopic } from "@/app/actions/topics";
 import { useSession } from "next-auth/react";
@@ -53,7 +53,7 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
 
     try {
       const formData = new FormData();
-      formData.append("slug", slug); // всегда добавляем slug
+      formData.append("slug", slug)
       formData.append("description", description);
       let result;
 
@@ -87,7 +87,7 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
         radius="sm"
         type="submit"
         onClick={openModal}
-        className={topicId ? styles.btn_action : styles.btn_create} // Используем разные стили для Edit и New Topic
+        className={topicId ? styles.btn_action : styles.btn_create}
       >
         {topicId ? 'Edit Topic' : 'New Topic'}
       </Button>
@@ -107,14 +107,16 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
           errorMessage={errors.slug}
           readOnly={!!topicId}
         />
-        <OurInput
+        <Textarea
           id="description"
           label="Description"
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           errorMessage={errors.description}
+          style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
         />
+        {errors.description && <p className={styles.error_message} style={{ color: 'red', marginTop: '4px' }}>{errors.description}</p>}
       </ModalWindow>
       {notification && (
         <Modal isOpen={!!notification} onClose={closeNotification}>

@@ -23,6 +23,7 @@ export default function DeleteCommentButton({ commentId }: DeleteCommentButtonPr
       setError('You must be logged in to delete comments');
     } else {
       setIsModalOpen(true);
+      setError(null);
     }
   };
 
@@ -36,14 +37,14 @@ export default function DeleteCommentButton({ commentId }: DeleteCommentButtonPr
   };
 
   return (
-    <>
+    <div>
       <Button
         className={styles.btn_del_comment}
         onClick={handleDeleteClick}
       >
         Delete
       </Button>
-      {error && <p className={styles.error_message}>{error}</p>}
+      {error && <p className={styles.error_message} style={{ marginTop: '8px', color: 'red' }}>{error}</p>}
       {session?.user && (
         <ConfirmModal
           title="Delete Comment"
@@ -52,6 +53,6 @@ export default function DeleteCommentButton({ commentId }: DeleteCommentButtonPr
           onConfirm={handleDeleteComment}
         />
       )}
-    </>
+    </div>
   );
 }

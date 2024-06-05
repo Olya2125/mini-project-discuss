@@ -6,10 +6,11 @@ import TopicListView from '@/components/Topic/listTopicView';
 import styles from '@/components/styles.module.css';
 import TopicSlugListView from '@/components/Topic/ListSlugTopicView';
 import CreatePostComponent from '@/components/Post/CreatePostComponent';
-import CreateTopicComponent from '@/components/Topic/createTopicComponent'; // Импортируем компонент редактирования топика
+import CreateTopicComponent from '@/components/Topic/createTopicComponent';
 import { SessionProvider } from 'next-auth/react';
 import BackButton from '@/components/backButton/page';
 import DeleteTopicButton from '@/components/Topic/DeleteTopicButton';
+import CommentTree from '@/components/comment/CommentTree';
 
 export default async function ViewTopic(props: any) {
   const { slug } = props.params;
@@ -22,7 +23,22 @@ export default async function ViewTopic(props: any) {
       posts: {
         include: {
           user: true,
-          comments: true,
+          comments: {
+            where: { parentId: null },
+            include: {
+              user: true,
+              children: {
+                include: {
+                  user: true,
+                  children: {
+                    include: {
+                      user: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
           topic: true,
         },
       },

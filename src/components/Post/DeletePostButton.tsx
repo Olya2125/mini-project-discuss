@@ -30,7 +30,7 @@ export default function DeletePostButton({ postId, topicSlug }: DeletePostButton
   const handleDeletePost = async () => {
     try {
       await deletePost(postId);
-      router.push(`/viewTopic/${encodeURIComponent(topicSlug)}`); // Redirect to the topic page
+      router.push('/');
     } catch (error) {
       console.error("Error deleting post:", error);
     }
@@ -39,7 +39,7 @@ export default function DeletePostButton({ postId, topicSlug }: DeletePostButton
   return (
     <>
       <Button
-        className={styles.btn_del}
+        className={styles.btn_delete}
         size="lg"
         radius="sm"
         onClick={handleDeleteClick}

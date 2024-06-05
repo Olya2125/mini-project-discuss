@@ -7,7 +7,7 @@ import CommentTree from '@/components/comment/CommentTree';
 import styles from '@/components/styles.module.css';
 import BackButton from '@/components/backButton/page';
 import DeletePostButton from '@/components/Post/DeletePostButton';
-import EditPostButton from '@/components/Post/EditPostButton';
+import CreatePostComponent from '@/components/Post/CreatePostComponent';
 
 export default async function ViewPost(props: any) {
   const { id, slug } = props.params;
@@ -46,16 +46,20 @@ export default async function ViewPost(props: any) {
       <div>
         <div className="flex flex-col items-center p-10">
           <h3 className={styles.alltitle}>{post.title}</h3>
-          <p className={styles.application}>{post.content}</p>
+          <p className={styles.application} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{post.content}</p>
           <div className="flex space-x-2">
-            <EditPostButton postId={post.id} initialTitle={post.title} initialContent={post.content} />
-            <DeletePostButton postId={post.id} topicSlug={slug} /> 
+            <CreatePostComponent
+              postId={post.id}
+              initialTitle={post.title}
+              initialContent={post.content}
+              topicId={post.topic.id}
+            />
+            <DeletePostButton postId={post.id} topicSlug={slug} />
           </div>
           <CreateCommentComponent postId={post.id} />
         </div>
         <div>
           <p className={styles.application_comments}>
-            {/* All {post.comments.length} comments */}
             Comments
           </p>
           {post.comments.map((comment) => (
