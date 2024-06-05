@@ -424,3 +424,11 @@ margin-left: 16px;
 color: #e0261c;
     font-size: 18px;
   }
+
+
+.error {
+  color: red;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+  

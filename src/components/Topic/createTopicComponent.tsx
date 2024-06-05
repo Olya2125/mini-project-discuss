@@ -11,6 +11,7 @@ export default function CreateTopicComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slug, setSlug] = useState("");
   const [description, setDescription] = useState("");
+  const [errors, setErrors] = useState<{ slug?: string; description?: string }>({});
   const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
 
   const openModal = () => {
@@ -19,6 +20,7 @@ export default function CreateTopicComponent() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setErrors({});
   };
 
   const closeNotification = () => {
@@ -26,14 +28,16 @@ export default function CreateTopicComponent() {
     window.location.reload();
   };
 
-  const handleCreateTopic = async () => {
+  const handleCreateTopic = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrors({});
+
     try {
       const formData = new FormData();
       formData.append("slug", slug);
       formData.append("description", description);
 
       const result = await createTopic({ message: "" }, formData);
-      console.log(result.message);
 
       if (result.message === 'Topic created successfully') {
         setSlug('');
@@ -41,12 +45,11 @@ export default function CreateTopicComponent() {
         closeModal();
         setNotification({ type: 'success', message: 'Topic created successfully' });
       } else {
-        console.error(result.message);
-        setNotification({ type: 'error', message: result.message });
+        setErrors(result.errors || {});
       }
     } catch (error) {
-      console.error("Ошибка при создании темы:", error);
-      setNotification({ type: 'error', message: 'Ошибка при создании темы' });
+      console.error("Error creating topic:", error);
+      setNotification({ type: 'error', message: 'Error creating topic' });
     }
   };
 
@@ -75,6 +78,7 @@ export default function CreateTopicComponent() {
           placeholder="Name"
           value={slug}
           onChange={(e) => setSlug(e.target.value)}
+          errorMessage={errors.slug}
         />
         <OurInput
           id="description"
@@ -82,6 +86,7 @@ export default function CreateTopicComponent() {
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          errorMessage={errors.description}
         />
       </ModalWindow>
       {notification && (

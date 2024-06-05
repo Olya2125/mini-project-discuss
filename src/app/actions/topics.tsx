@@ -9,6 +9,9 @@ export const createTopic = async (_prevState: { message: string }, formData: For
 
   try {
     const result = await createTopicInDB(slug, description);
+    if (result.errors) {
+      return { message: result.message, errors: result.errors };
+    }
     return { message: result.message };
   } catch (error) {
     return handleError(error);
@@ -16,7 +19,11 @@ export const createTopic = async (_prevState: { message: string }, formData: For
 };
 
 export const getAllTopics = async () => {
-  return await getAllTopicsFromDB();
+  try {
+    return await getAllTopicsFromDB();
+  } catch (error) {
+    return handleError(error);
+  }
 };
 
 export const deleteTopic = async (slug: string) => {

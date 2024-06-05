@@ -1,14 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Button,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "@nextui-org/react";
+import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import ModalWindow from "@/components/modalWindow";
 import { createPost } from "@/app/actions/posts";
 import { useSession } from "next-auth/react";
@@ -25,6 +18,7 @@ export default function CreatePostComponent({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [errors, setErrors] = useState<{ title?: string; content?: string }>({});
   const [notification, setNotification] = useState<{
     type: string;
     message: string;
@@ -37,6 +31,7 @@ export default function CreatePostComponent({
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setErrors({});
   };
 
   const closeNotification = () => {
@@ -44,8 +39,9 @@ export default function CreatePostComponent({
     window.location.reload();
   };
 
-  const handleCreatePost = async () => {
-    console.log("handleCreatePost called");
+  const handleCreatePost = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrors({});
 
     if (!session?.user?.id) {
       console.error("User not authenticated");
@@ -54,12 +50,6 @@ export default function CreatePostComponent({
     }
 
     try {
-      console.log("Form data:", {
-        title,
-        content,
-        userId: session.user.id,
-        topicId,
-      });
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
@@ -67,7 +57,10 @@ export default function CreatePostComponent({
       formData.append("topicId", topicId);
 
       const result = await createPost({ message: "" }, formData);
-      console.log(result.message);
+      if (result.errors) {
+        setErrors(result.errors);
+        return;
+      }
 
       if (result.message === "Post created successfully") {
         setTitle("");
@@ -112,6 +105,7 @@ export default function CreatePostComponent({
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          errorMessage={errors.title}
         />
         <OurInput
           id="content"
@@ -119,6 +113,7 @@ export default function CreatePostComponent({
           placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          errorMessage={errors.content}
         />
       </ModalWindow>
       {notification && (

@@ -7,7 +7,10 @@ const createTopicSchema = z.object({
   description: z.string().min(10, "Description should be longer than 10 letters"),
 });
 
-export const createTopicInDB = async (slug: string, description: string) => {
+export const createTopicInDB = async (slug: string, description: string): Promise<
+  | { message: string; createdTopic?: undefined; errors?: Record<string, string> }
+  | { message: string; createdTopic: { id: string; slug: string; description: string; createdAt: Date; updatedAt: Date }; errors?: undefined }
+> => {
   try {
     const parsedData = createTopicSchema.parse({ slug, description });
 
@@ -22,6 +25,18 @@ export const createTopicInDB = async (slug: string, description: string) => {
 
     return { message: 'Topic created successfully', createdTopic };
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return {
+        message: 'Validation failed',
+        errors: error.errors.reduce((acc, curr) => {
+          if (curr.path.length > 0) {
+            const key = curr.path[0] as string;
+            acc[key] = curr.message;
+          }
+          return acc;
+        }, {} as Record<string, string>),
+      };
+    }
     return handleError(error);
   }
 };

@@ -9,7 +9,10 @@ const createPostSchema = z.object({
   topicId: z.string().min(1, "Topic ID is required"),
 });
 
-export const createPostInDB = async (formData: FormData) => {
+export const createPostInDB = async (formData: FormData): Promise<
+  | { message: string; createdPost?: undefined; errors?: Record<string, string> }
+  | { message: string; createdPost: { id: string; title: string; content: string; userId: string; topicId: string; createdAt: Date; updatedAt: Date }; errors?: undefined }
+> => {
   const title = formData.get('title') as string;
   const content = formData.get('content') as string;
   const userId = formData.get('userId') as string;
@@ -24,6 +27,18 @@ export const createPostInDB = async (formData: FormData) => {
 
     return { message: 'Post created successfully', createdPost };
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return {
+        message: 'Validation failed',
+        errors: error.errors.reduce((acc, curr) => {
+          if (curr.path.length > 0) {
+            const key = curr.path[0] as string;
+            acc[key] = curr.message;
+          }
+          return acc;
+        }, {} as Record<string, string>),
+      };
+    }
     return handleError(error);
   }
 };
