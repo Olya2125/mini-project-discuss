@@ -72,3 +72,43 @@ export const getPopularPostsFromDB = async () => {
     return handleError(error);
   }
 };
+
+const updatePostSchema = z.object({
+  postId: z.string().min(1, "Post ID is required"),
+  title: z.string().min(3, "Title should be longer than 3 letters"),
+  content: z.string().min(10, "Content should be longer than 10 letters"),
+});
+
+export const updatePostInDB = async (formData: FormData): Promise<
+  | { message: string; updatedPost?: undefined; errors?: Record<string, string> }
+  | { message: string; updatedPost: { id: string; title: string; content: string; userId: string; topicId: string; createdAt: Date; updatedAt: Date }; errors?: undefined }
+> => {
+  const postId = formData.get('postId') as string;
+  const title = formData.get('title') as string;
+  const content = formData.get('content') as string;
+
+  try {
+    const parsedData = updatePostSchema.parse({ postId, title, content });
+
+    const updatedPost = await db.post.update({
+      where: { id: postId },
+      data: { title: parsedData.title, content: parsedData.content },
+    });
+
+    return { message: 'Post updated successfully', updatedPost };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return {
+        message: 'Validation failed',
+        errors: error.errors.reduce((acc, curr) => {
+          if (curr.path.length > 0) {
+            const key = curr.path[0] as string;
+            acc[key] = curr.message;
+          }
+          return acc;
+        }, {} as Record<string, string>),
+      };
+    }
+    return handleError(error);
+  }
+};

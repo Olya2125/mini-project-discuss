@@ -10,9 +10,10 @@ import ConfirmModal from "@/components/ConfirmModal";
 
 interface DeletePostButtonProps {
   postId: string;
+  topicSlug: string;
 }
 
-export default function DeletePostButton({ postId }: DeletePostButtonProps) {
+export default function DeletePostButton({ postId, topicSlug }: DeletePostButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function DeletePostButton({ postId }: DeletePostButtonProps) {
   const handleDeletePost = async () => {
     try {
       await deletePost(postId);
-      router.refresh();
+      router.push(`/viewTopic/${encodeURIComponent(topicSlug)}`); // Redirect to the topic page
     } catch (error) {
       console.error("Error deleting post:", error);
     }

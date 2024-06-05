@@ -6,7 +6,8 @@ import CreateCommentComponent from '@/components/comment/CreateCommentComponent'
 import CommentTree from '@/components/comment/CommentTree';
 import styles from '@/components/styles.module.css';
 import BackButton from '@/components/backButton/page';
-import DeletePostButton from '@/components/Post/DeletePostButton'; // Импортируем кнопку удаления поста
+import DeletePostButton from '@/components/Post/DeletePostButton';
+import EditPostButton from '@/components/Post/EditPostButton';
 
 export default async function ViewPost(props: any) {
   const { id, slug } = props.params;
@@ -43,15 +44,19 @@ export default async function ViewPost(props: any) {
     <SessionProvider>
       <BackButton />
       <div>
-        <div className="flex flex-col items-center p-10 ">
+        <div className="flex flex-col items-center p-10">
           <h3 className={styles.alltitle}>{post.title}</h3>
           <p className={styles.application}>{post.content}</p>
-          <DeletePostButton postId={post.id} /> {/* Добавляем кнопку удаления поста */}
+          <div className="flex space-x-2">
+            <EditPostButton postId={post.id} initialTitle={post.title} initialContent={post.content} />
+            <DeletePostButton postId={post.id} topicSlug={slug} /> 
+          </div>
           <CreateCommentComponent postId={post.id} />
         </div>
         <div>
           <p className={styles.application_comments}>
-            All {post.comments.length} comments
+            {/* All {post.comments.length} comments */}
+            Comments
           </p>
           {post.comments.map((comment) => (
             <CommentTree key={comment.id} comment={comment} postId={post.id} />

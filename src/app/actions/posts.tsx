@@ -1,6 +1,6 @@
 'use server';
 
-import { createPostInDB, deletePostFromDB, getPopularPostsFromDB } from '@/db/posts';
+import { createPostInDB, deletePostFromDB, getPopularPostsFromDB, updatePostInDB } from '@/db/posts';
 import { handleError } from '@/utils/errorHandler';
 
 export const createPost = async (_prevState: { message: string }, formData: FormData) => {
@@ -29,5 +29,17 @@ export const getPopularPosts = async () => {
     return await getPopularPostsFromDB();
   } catch (error) {
     throw new Error('Failed to fetch popular posts');
+  }
+};
+
+export const updatePost = async (_prevState: { message: string }, formData: FormData) => {
+  try {
+    const result = await updatePostInDB(formData);
+    if (result.errors) {
+      return { message: result.message, errors: result.errors };
+    }
+    return { message: result.message };
+  } catch (error) {
+    return handleError(error);
   }
 };
