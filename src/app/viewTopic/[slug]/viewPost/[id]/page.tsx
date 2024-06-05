@@ -6,6 +6,7 @@ import CreateCommentComponent from '@/components/comment/CreateCommentComponent'
 import CommentTree from '@/components/comment/CommentTree';
 import styles from '@/components/styles.module.css';
 import BackButton from '@/components/backButton/page';
+import DeletePostButton from '@/components/Post/DeletePostButton'; // Импортируем кнопку удаления поста
 
 export default async function ViewPost(props: any) {
   const { id, slug } = props.params;
@@ -45,6 +46,7 @@ export default async function ViewPost(props: any) {
         <div className="flex flex-col items-center p-10 ">
           <h3 className={styles.alltitle}>{post.title}</h3>
           <p className={styles.application}>{post.content}</p>
+          <DeletePostButton postId={post.id} /> {/* Добавляем кнопку удаления поста */}
           <CreateCommentComponent postId={post.id} />
         </div>
         <div>

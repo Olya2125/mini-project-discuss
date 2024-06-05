@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@nextui-org/react';
 import styles from '@/components/styles.module.css';
-import DeletePostButton from '@/components/Post/DeletePostButton';
+// import DeletePostButton from '@/components/Post/DeletePostButton';
 
 interface PostProps {
   id: string;
@@ -24,7 +24,7 @@ function PostCard({ id, slug, title, author, comments, showDeleteButton = true }
           </div>
         </div>
       </Link>
-      {showDeleteButton && <DeletePostButton postId={id} />} 
+      {/* {showDeleteButton && <DeletePostButton postId={id} />}  */}
     </div>
   );
 }
