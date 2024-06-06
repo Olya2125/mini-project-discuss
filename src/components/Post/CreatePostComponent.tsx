@@ -26,6 +26,7 @@ export default function CreatePostComponent({
   const [content, setContent] = useState(initialContent);
   const [errors, setErrors] = useState<{ title?: string; content?: string }>({});
   const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -35,9 +36,10 @@ export default function CreatePostComponent({
 
   const openModal = () => {
     if (!session?.user) {
-      setNotification({ type: 'error', message: 'You must be logged in to perform this action' });
+      setError('You must be logged in to create or edit posts');
     } else {
       setIsModalOpen(true);
+      setError(null);
     }
   };
 
@@ -99,12 +101,12 @@ export default function CreatePostComponent({
   return (
     <div>
       <button
-
-             onClick={openModal}
+        onClick={openModal}
         className={postId ? styles.btn_edit_comment : styles.btn_comment}
       >
         {postId ? "Edit Post" : "Create Post"}
       </button>
+      {error && <p className={styles.error_message} style={{ color: 'red' }}>{error}</p>}
       <ModalWindow
         title={postId ? "Edit Post" : "Create Post"}
         isOpen={isModalOpen}
