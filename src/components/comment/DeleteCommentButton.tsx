@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { deleteComment } from '@/app/actions/comments';
 import { useSession } from 'next-auth/react';
@@ -37,13 +36,13 @@ export default function DeleteCommentButton({ commentId }: DeleteCommentButtonPr
   };
 
   return (
-    <div>
-      <Button
-        className={styles.btn_del_comment}
+    <>
+      <button
+        className={styles.btn_delete_main}
         onClick={handleDeleteClick}
       >
         Delete
-      </Button>
+      </button>
       {error && <p className={styles.error_message} style={{ marginTop: '8px', color: 'red' }}>{error}</p>}
       {session?.user && (
         <ConfirmModal
@@ -53,6 +52,6 @@ export default function DeleteCommentButton({ commentId }: DeleteCommentButtonPr
           onConfirm={handleDeleteComment}
         />
       )}
-    </div>
+    </>
   );
 }

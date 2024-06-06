@@ -43,7 +43,7 @@ export default async function ViewPost(props: any) {
   return (
     <SessionProvider>
       <BackButton />
-      <div>
+      <div className={styles.border_all} >
         <div className="flex flex-col items-center p-10">
           <h3 className={styles.alltitle}>{post.title}</h3>
           <p className={styles.application} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{post.content}</p>

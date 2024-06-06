@@ -51,7 +51,7 @@ export default async function ViewTopic(props: any) {
 
   return (
     <SessionProvider>
-      <div>
+      <div className={styles.border_all}>
         <BackButton />
         <div className={styles.main_head}>
           <div className={styles.postmain}>

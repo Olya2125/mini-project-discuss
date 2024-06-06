@@ -5,6 +5,7 @@ import styles from '@/components/styles.module.css';
 import { searchPosts } from '@/db/search';
 import CreateTopicComponent from '@/components/Topic/createTopicComponent';
 import TopicList from '@/components/Topic/listTopic';
+import { SessionProvider } from 'next-auth/react';
 
 interface SearchPageProps {
   searchParams: {
@@ -22,6 +23,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const posts = await searchPosts(term);
 
   return (
+    <SessionProvider>
     <div className={styles.main_head}>
     <div className={styles.search_results}>
       <h1 className={styles.search_result}>Search Results for "{term}"</h1>
@@ -46,5 +48,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               <TopicList title="Topics" />
             </div>
             </div>
+            </SessionProvider>
   );
 }

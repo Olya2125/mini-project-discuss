@@ -98,17 +98,13 @@ export default function CreatePostComponent({
 
   return (
     <div>
-      <Button
-        color="primary"
-        variant="solid"
-        size="lg"
-        radius="sm"
-        type="button"
-        onClick={openModal}
-        className={postId ? styles.btn_delete : styles.btn_create}
+      <button
+
+             onClick={openModal}
+        className={postId ? styles.btn_edit_comment : styles.btn_comment}
       >
         {postId ? "Edit Post" : "Create Post"}
-      </Button>
+      </button>
       <ModalWindow
         title={postId ? "Edit Post" : "Create Post"}
         isOpen={isModalOpen}

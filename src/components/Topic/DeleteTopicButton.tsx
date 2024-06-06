@@ -38,7 +38,7 @@ export default function DeleteTopicButton({ slug }: DeleteTopicButtonProps) {
   return (
     <>
       <Button
-        className={styles.btn_delete}
+        className={styles.btn_delete_main}
         size="lg"
         radius="sm"
         onClick={handleDeleteClick}

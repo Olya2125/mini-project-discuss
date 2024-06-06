@@ -5,7 +5,18 @@
 
 
   }
-  
+  .input{
+    margin: 30px;
+    background: none;
+    border: none;
+    outline: none;
+    max-width: 190px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+    color: #fff;
+  }
 .nav{
   color: #fff;
   padding-top: 20px;
@@ -72,7 +83,8 @@ margin-top: 40px;
 }
 
 .post:hover{
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: inset 6px 6px 8px #c3c3c3,
+               -6px -6px 8px #ffffff;
   border: 2px solid  rgb(18, 54, 181);
 }
 .post_title{
@@ -80,7 +92,12 @@ margin-top: 40px;
   color: #021A36;
   font-weight: 600;
 }
-
+.application{
+width: 840px;
+  font-size: 18px;
+  font-weight: 400;
+margin-bottom: 20px;
+}
 .description_title{
   margin-top: 10px;
 }
@@ -132,38 +149,87 @@ height: 30px;
   color: #fff;
   background-color: #030b15;
 }
-.btn_del_comment{
-  margin-top: 10px;
-  background-color: #b2b2b4;
-  color: #030a13;
-  border: none;
-font-weight: 500;
-margin-left: 10px;
-width: 150px;
-height: 30px;
-}
-.btn_del_comment:hover{
 
-  color: #fff;
-  background-color: #030b15;
+.user{
+  font-weight: 700;
 }
-
 .btn_delete{
-  margin-top: 10px;
-  background-color: #b2b2b4;
-  color: #030a13;
   border: none;
-font-weight: 500;
-width: 150px;
+  border-radius: 6px;
+  color: #010e1d;
+  background: #ffffff;
+  box-shadow:  1px 1px 4px #f87364,
+               -2px -2px 4px #f6c0c0;
+  cursor: pointer;
+  font-weight: 600;
+  width: 120px;
 height: 30px;
-margin-left: auto;
-margin-right: auto;
+text-align: center;
 }
 
 .btn_delete:hover{
-  
+  box-shadow: inset 2px 2px 8px #f6c0c0,
+               -6px -6px 8px #ffffff;
+}
+.btn_delete_main{
+  border: none;
+  border-radius: 6px;
+  color: #010e1d;
+  background: #ffffff;
+  box-shadow:  1.2px 1.2px 2px #982a1d,
+               -1.2px -1.2px 2px #f6c0c0;
+  cursor: pointer;
+  font-weight: 600;
+  width: 120px;
+height: 30px;
+text-align: center;
+margin-left: 30px;
+}
+
+.btn_delete_main:hover{
+  box-shadow: inset 2px 2px 8px #7b2626,
+               -6px -6px 8px #ffffff;
+}
+
+.btn_edit{
+  border: none;
+  border-radius: 6px;
   color: #fff;
-  background-color: #030b15;
+  background: #006FEE;
+margin-left: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 120px;
+height: 30px;
+text-align: center;
+margin-bottom: 10px;
+margin-top: 20px;
+
+}
+
+.btn_edit:hover{
+  box-shadow: inset 2px 2px 8px #3f457b,
+  -2px -2px 8px #c0d0f6;
+               background-color: transparent;
+               color: #010e1d;
+}
+
+.btn_edit_comment{
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  background: #006FEE;
+  cursor: pointer;
+  font-weight: 600;
+  width: 120px;
+height: 30px;
+text-align: center;
+}
+.btn_edit_comment:hover{
+  box-shadow: inset 1px 1px 4px #6473f8,
+  -2px -2px 4px #c0d0f6;
+               background-color: transparent;
+               color: #010e1d;
 }
 
 .btn_create:hover{
@@ -258,25 +324,74 @@ justify-content: center;
     display: flex;
     justify-content: center;
   }
-  .application{
-    font-size: 18px;
-    font-weight: 500;
-    max-width:500px;
-  }
+
 .textarea{
-  width:420px;
-  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  width:620px;
+  height: 100px;
+  margin-top: 36px;
   margin-bottom: 40px;
-  border: 2pm solid rgb(124,142,207)
+  border: 2px solid rgb(175, 177, 183);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+-webkit-tap-highlight-color: transparent;
+  font-size: 1rem;
+  line-height: 2rem;
+  font-weight: 300;
+  background:#FFFFFF;
+  border-radius: 1rem;
+  outline: none;
+  box-shadow: 
+    3px 3px 10px #D1D9E9, 
+    -3px -3px 10px #FFFFFF;
+  resize: vertical;
+  transition: ease .2s;
+  cursor: pointer;
+}
+
+.textarea::placeholder {
+  color: #94959b;
+  
+}
+
+.textarea:focus {
+  min-height: 100px;
+  box-shadow: 
+    inset 4px 4px 10px #bbbdc1, 
+    inset -4px -4px 10px #FFFFFF;
+    border: none;
+}
+
+
+
+.textarea:placeholder-shown {
+  background: none;
 }
 
 .btn_comment{
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   justify-content: center;
+  margin-top: -14px;
+  margin-bottom: 20px;
+  background-color: #006FEE;
+  width: 140px;
+  height: 44px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  color: #ffffff;
+  align-items: center;
 }
 
 .btn_comment:hover{
-  background-color: #010e1d;
+  background-color: transparent;
+  box-shadow: inset 2px 2px 8px #818181,
+               -6px -6px 8px #ffffff;
+               color: #030a13;
 }
   .modal{
     outline: none;
@@ -298,31 +413,16 @@ justify-content: center;
     text-align: center;
   }
 
- .application{
-font-size: 18px;
-font-weight: 400;
-max-width: 520px;
-  }
+
 
   .application_comments{
-    font-size: 18px;
+    font-size: 22px;
 font-weight: 600;
-max-width: 400px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-margin-left: auto;
-margin-right: auto;
-max-width: 520px;
-margin-bottom: 10px;
+
+margin-left: 70px;
+margin-bottom: 18px;
   }
-  .textarea{
-    max-width: 420px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    border: 2px solid rgb(124, 142, 207);
-    border-radius: 12px;
-  }
+
 
   .all_comments{
     font-size: 18px;
@@ -330,27 +430,38 @@ margin-bottom: 10px;
 margin-left: -260px; 
 margin-top: 30px;
  } 
-
- .border{
+.border_all{
+  margin-bottom: 80px;
+}
+  .border{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 520px;
+width: 100%;
   border-radius: 12px;
-  border: 2px solid rgb(200, 204, 216);
-  margin-bottom: 80px;
- }
+  margin-bottom: 10px;
+  outline: none;
+  background-color: #fff;
+  box-shadow: inset 2px 1px 7px rgba(39, 38, 38, 0.3);
+  transition: 300ms ease-in-out;
+ } 
+
+ .border:focus {
+  background-color: white;
+  transform: scale(1.05);
+  box-shadow: 13px 13px 100px #969696,
+             -13px -13px 100px #ffffff;
+}
 
  .comment_one{
   display: flex;
   margin-top: 20px;
   margin-left: 20px;
+  margin-bottom: 10px;
  }
  .comment_one_info{
   margin-left: 10px;
-max-width: 420px;
+margin-right: 40px;
 
  }
 
@@ -370,8 +481,9 @@ margin-top: 10px;
   display: flex;
   flex-direction: column;
   margin-left: 40px;
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  max-width: 800px;
  }
 
   .btnback {
@@ -396,6 +508,13 @@ margin-top: 10px;
   .btn_chanel{
     background-color: #021831;
     color: #fff;
+  }
+  .btn_chanel:hover{
+    background-color: transparent;
+    box-shadow: inset 2px 2px 8px #2b2d38,
+                 -6px -6px 8px #ffffff;
+                 color: #030a13;
+                 font-weight: 600;
   }
 
   .btndelete{
@@ -423,39 +542,4 @@ color: #021A36;
 margin-left: 16px;
 color: #e0261c;
     font-size: 18px;
-  }
-
-
-  .textarea.error {
-    border-color: red;
-  }
-  
-  .error_message {
-    color: red;
-    font-size: 0.875rem;
-  }
-  
-  .button_group_vertical {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .btn_action {
-    margin-top: 10px;
-    background-color: #b2b2b4;
-    color: #030a13;
-    border: none;
-    font-weight: 500;
-    width: 150px;
-    height: 30px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .btn_action:hover {
-    color: #fff;
-    background-color: #030b15;
   }
