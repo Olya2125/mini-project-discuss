@@ -38,7 +38,7 @@ export default function DeleteCommentButton({ commentId }: DeleteCommentButtonPr
   return (
     <>
       <button
-        className={styles.btn_delete_main}
+        className={styles.btn_delete_main_com}
         onClick={handleDeleteClick}
       >
         Delete
