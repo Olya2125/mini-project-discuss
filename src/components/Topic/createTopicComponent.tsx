@@ -7,6 +7,7 @@ import { createTopic, updateTopic } from "@/app/actions/topics";
 import { useSession } from "next-auth/react";
 import OurInput from "@/components/ourInput";
 import styles from "@/components/styles.module.css";
+import DeleteTopicButton from "./DeleteTopicButton";
 
 interface CreateTopicComponentProps {
   initialSlug?: string;
@@ -79,7 +80,7 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
   };
 
   return (
-    <div>
+    <div className={styles.btn_edit_del}>
       <button
         type="submit"
         onClick={openModal}

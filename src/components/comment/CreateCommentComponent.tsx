@@ -68,7 +68,7 @@ export default function CreateCommentComponent({ postId, parentId = null }: Crea
         className={`${styles.textarea} ${errors.content ? styles.error : ''}`}
         style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
       />
-      {errors.content && <p className={styles.error_message} style={{ color: 'red', marginTop: '4px' }}>{errors.content}</p>}
+      {errors.content && <p className={styles.error_message} >{errors.content}</p>}
       <Button
         className={styles.btn_comment}
         color="primary"
