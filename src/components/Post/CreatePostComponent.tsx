@@ -106,7 +106,7 @@ export default function CreatePostComponent({
       >
         {postId ? "Edit Post" : "Create Post"}
       </button>
-      {error && <p className={styles.error_message} style={{ color: 'red' }}>{error}</p>}
+      {error && <p className={styles.error_message_post} style={{ color: 'red' }}>{error}</p>}
       <ModalWindow
         title={postId ? "Edit Post" : "Create Post"}
         isOpen={isModalOpen}

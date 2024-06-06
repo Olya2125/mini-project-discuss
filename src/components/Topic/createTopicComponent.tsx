@@ -88,7 +88,7 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
       >
         {topicId ? 'Edit Topic' : 'New Topic'}
       </button>
-      {error && <p className={styles.error_message} style={{ color: 'red' }}>{error}</p>}
+      {error && <p className={styles.error_message_topic} style={{ color: 'red' }}>{error}</p>}
       <ModalWindow
         title={topicId ? 'Edit Topic' : 'Create a Topic'}
         isOpen={isModalOpen}
