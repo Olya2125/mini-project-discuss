@@ -60,7 +60,7 @@ export default async function ViewTopic(props: any) {
               <PostList posts={topic.posts} />
             </div>
           </div>
-          <div className={styles.t}>
+          <div className={styles.sidebar}>
             <CreatePostComponent topicId={topic.id} />
             <TopicListView topic={topic} />
             <div className={styles.button_group_vertical}>
