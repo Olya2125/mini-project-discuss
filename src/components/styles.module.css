@@ -150,27 +150,9 @@ height: 30px;
   background-color: #030b15;
 }
 
-.btn_del_comment{
-  border: none;
-  border-radius: 6px;
-  color: #010e1d;
-  background: #ffffff;
-  box-shadow:  2px 2px 8px #424b6b,
-               -6px -6px 8px #ffffff;
-  cursor: pointer;
-  margin-left: 15px;
-  font-weight: 600;
-  width: 120px;
-height: 30px;
-text-align: center;
+.user{
+  font-weight: 700;
 }
-
-.btn_del_comment:hover{
-  box-shadow: inset 2px 2px 8px #c3c3c3,
-               -6px -6px 8px #ffffff;
-}
-
-
 .btn_delete{
   border: none;
   border-radius: 6px;
@@ -194,8 +176,8 @@ text-align: center;
   border-radius: 6px;
   color: #010e1d;
   background: #ffffff;
-  box-shadow:  1px 1px 4px #f87364,
-               -2px -2px 4px #f6c0c0;
+  box-shadow:  1.2px 1.2px 2px #982a1d,
+               -1.2px -1.2px 2px #f6c0c0;
   cursor: pointer;
   font-weight: 600;
   width: 120px;
@@ -205,7 +187,7 @@ margin-left: 30px;
 }
 
 .btn_delete_main:hover{
-  box-shadow: inset 2px 2px 8px #f6c0c0,
+  box-shadow: inset 2px 2px 8px #7b2626,
                -6px -6px 8px #ffffff;
 }
 
@@ -226,8 +208,8 @@ margin-top: 20px;
 }
 
 .btn_edit:hover{
-  box-shadow: inset 1px 1px 4px #6473f8,
-  -2px -2px 4px #c0d0f6;
+  box-shadow: inset 2px 2px 8px #3f457b,
+  -2px -2px 8px #c0d0f6;
                background-color: transparent;
                color: #010e1d;
 }
@@ -348,7 +330,7 @@ justify-content: center;
   justify-content: center;
   width:620px;
   height: 100px;
-  margin-top: 80px;
+  margin-top: 36px;
   margin-bottom: 40px;
   border: 2px solid rgb(175, 177, 183);
   margin-left: auto;
@@ -434,16 +416,11 @@ justify-content: center;
 
 
   .application_comments{
-    font-size: 18px;
+    font-size: 22px;
 font-weight: 600;
-max-width: 400px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-margin-left: auto;
-margin-right: auto;
-max-width: 520px;
-margin-bottom: 10px;
+
+margin-left: 70px;
+margin-bottom: 18px;
   }
 
 
@@ -453,21 +430,21 @@ margin-bottom: 10px;
 margin-left: -260px; 
 margin-top: 30px;
  } 
-
- .border{
+.border_all{
+  margin-bottom: 80px;
+}
+  .border{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 840px;
+width: 100%;
   border-radius: 12px;
-  margin-bottom: 80px;
+  margin-bottom: 10px;
   outline: none;
   background-color: #fff;
   box-shadow: inset 2px 1px 7px rgba(39, 38, 38, 0.3);
   transition: 300ms ease-in-out;
- }
+ } 
 
  .border:focus {
   background-color: white;
@@ -480,12 +457,11 @@ margin-top: 30px;
   display: flex;
   margin-top: 20px;
   margin-left: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
  }
  .comment_one_info{
   margin-left: 10px;
-max-width: 720px;
-margin-right: 10px;
+margin-right: 40px;
 
  }
 
@@ -505,8 +481,9 @@ margin-top: 10px;
   display: flex;
   flex-direction: column;
   margin-left: 40px;
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  max-width: 800px;
  }
 
   .btnback {
@@ -531,6 +508,13 @@ margin-top: 10px;
   .btn_chanel{
     background-color: #021831;
     color: #fff;
+  }
+  .btn_chanel:hover{
+    background-color: transparent;
+    box-shadow: inset 2px 2px 8px #2b2d38,
+                 -6px -6px 8px #ffffff;
+                 color: #030a13;
+                 font-weight: 600;
   }
 
   .btndelete{

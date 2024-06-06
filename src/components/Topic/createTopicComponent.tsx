@@ -80,17 +80,13 @@ export default function CreateTopicComponent({ initialSlug = '', initialDescript
 
   return (
     <div>
-      <Button
-        color="primary"
-        variant="solid"
-        size="lg"
-        radius="sm"
+      <button
         type="submit"
         onClick={openModal}
-        className={topicId ? styles.btn_action : styles.btn_create}
+        className={topicId ? styles.btn_edit : styles.btn_comment}
       >
         {topicId ? 'Edit Topic' : 'New Topic'}
-      </Button>
+      </button>
       {error && <p className={styles.error_message}>{error}</p>}
       <ModalWindow
         title={topicId ? 'Edit Topic' : 'Create a Topic'}
