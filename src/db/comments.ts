@@ -2,6 +2,24 @@ import { db } from '@/db';
 import { z } from 'zod';
 import { handleError } from '@/utils/errorHandler';
 
+export interface Comment {
+  id: string;
+  content: string;
+  postId: string;
+  userId: string;
+  parentId: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  user?: {
+    id: string;
+    name: string | null;
+    email: string | null;
+    emailVerified: Date | null;
+    image: string | null;
+  };
+  children?: Comment[];
+}
+
 const createCommentSchema = z.object({
   content: z.string().min(10, "Comment should be longer than 10 letters"),
   userId: z.string().min(1, "User ID is required"),
@@ -9,10 +27,7 @@ const createCommentSchema = z.object({
   parentId: z.string().nullable(),
 });
 
-export const createCommentInDB = async (formData: FormData): Promise<
-  | { message: string; createdComment?: undefined; errors?: Record<string, string> }
-  | { message: string; createdComment: { id: string; content: string; postId: string; userId: string; createdAt: Date; updatedAt: Date }; errors?: undefined }
-> => {
+export const createCommentInDB = async (formData: FormData) => {
   const content = formData.get('content') as string;
   const userId = formData.get('userId') as string;
   const postId = formData.get('postId') as string;
@@ -51,4 +66,24 @@ export const deleteCommentFromDB = async (commentId: string) => {
   } catch (error) {
     throw new Error('Failed to delete comment');
   }
+};
+
+export const getNestedCommentsFromDB = async (postId: string): Promise<Comment[]> => {
+  const fetchNestedComments = async (parentId: string | null): Promise<Comment[]> => {
+    const comments = await db.comment.findMany({
+      where: { postId, parentId },
+      include: {
+        user: true,
+        children: true,
+      },
+    });
+
+    for (const comment of comments) {
+      comment.children = await fetchNestedComments(comment.id);
+    }
+
+    return comments;
+  };
+
+  return fetchNestedComments(null);
 };
